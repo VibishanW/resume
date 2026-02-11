@@ -10376,38 +10376,3 @@ body {
 .project-tabs .nav-item {
   margin-bottom: 0.5rem;
 }
-
-.welcome-copy {
-  max-width: 62rem !important;
-  line-height: 1.8;
-}
-
-#mainNav .navbar-nav .nav-link {
-  font-size: 0.72rem;
-  padding: 0.4rem 0.6rem;
-}
-
-.project-panel p,
-.project-panel h2,
-.project-panel h3,
-.project-panel h4,
-.project-panel li {
-  color: #212529;
-}
-
-.project-link-card {
-  display: block;
-  height: 100%;
-  background: #ffffff;
-  border: 1px solid #dcdcdc;
-  border-radius: 0.25rem;
-  padding: 1.25rem;
-  color: #212529;
-  font-weight: 600;
-}
-
-.project-link-card:hover {
-  text-decoration: none;
-  border-color: #64a19d;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
-}
