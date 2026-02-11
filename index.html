@@ -37,8 +37,8 @@
         <header class="masthead">
             <div class="container d-flex h-100 align-items-center">
                 <div class="mx-auto text-center">
-                    <h1 class="mx-auto my-0 text-uppercase">Introduction</h1>
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5">My name is Vibishan Wigneswaran, an electrical engineering and computer science double major from the University of Massachusetts Lowell. The purpose of this website is to document and showcase skills relevant to my career as a programmer and engineer. Feel free to navigate through my projects or contact me for job related purposes.</h2>
+                    <h1 class="mx-auto my-0 text-uppercase">Welcome to my page!</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">My name is Vibi and I created this site to help showcase some of the engineering related work I've done over the years. The contents of this website primarily serve to hopefully entice employers, educate fellow engineers, and act as a public record for when I want to look back at my work. Most importantly, it helps motivate me to complete my home projects despite my busy lifestyle. It's important to remind myself that the work I've put myself through can contribute to the commonfolk and not just corporate internal tools that will never see the light of day :)</h2>
                     <a class="btn btn-primary js-scroll-trigger" href="#about">My Skills</a>
                 </div>
             </div>
@@ -46,65 +46,99 @@
         <!-- About-->
         <section class="about-section text-center" id="about">
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-white mb-4">Brief Overview of skills I have attained</h2>
-                        <p class="text-white-50">
-                            Programming Languages: C, C++, Java, CSS, HTML, MATLAB, MIPS<br>
-                            Application Experience: Microsoft Word, Excel, Photoshop, IntelliJ, MPLAB,
-                            Atom Editor, MATLAB, LINUX(Arch and Ubuntu), Windows (XP, Vista, 7, 10)<br>
-                            Hardware Experience: Raspberry Pi, PIC32MM, Circuitry, Soldering<br>
-                            Equipment Familiarity: Power Supplies, Oscilloscope, Function Generator, Network Analyzer<br>
-                            Video Game design: Programmer for independent studio at
-                            respective <a href="https://firstlightstudios.wordpress.com/">link</a>.
-                        </p>
+                <ul class="nav nav-tabs justify-content-center project-tabs about-tabs" id="aboutTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="bio-tab" data-toggle="tab" href="#bio" role="tab" aria-controls="bio" aria-selected="true">Bio</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="skills-tab" data-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">Skills</a>
+                    </li>
+                </ul>
+                <div class="tab-content project-tab-content text-left" id="aboutTabContent">
+                    <div class="tab-pane fade show active" id="bio" role="tabpanel" aria-labelledby="bio-tab">
+                        <div class="project-panel">
+                            <h4>Introduction</h4>
+                            <p class="text-black-50">FPGA/embedded engineer with an M.S. in ECE from Northeastern and a B.S. in EECS from UMass Lowell. I work on mission-critical FPGA systems across RF/SDR, high-speed datapaths, and firmware/software integration.</p>
+                            <p class="text-black-50">I have broad expertise with humble beginnings as a purely backend software engineer developing &amp; maintaining mission planning software before pivoting careers to firmware/hardware. I've had a strong desire to build a multi-faceted understanding of technology from the bud of my career. I decided to double major in Electrical Engineering and Computer Science during my undergrad. This decision was driven by the urge to build a strong foundational base in everything, from how electricity works to the complex use cases driven by application-level algorithms today. After starting my professional career in software, I felt that while my technical abilities improved, my research centered development had dwindled. As a result, I accepted a Masters opportunity at Northeastern University to 1. quench my thirst for deeper knowledge and 2. explore the research side of engineering through the lens of a thesis. Thanks to a strong support network of family, friends, and advisors I successfully completed my master's part-time while continuing my career full-time. Motivated by my broadened knowledge and with the support of my company I shifted to a FPGA/Firmware position midway through my degree to work more closely with hardware. Having completed my master's at the end of 2025 I successfully published a thesis exploring hardware-accelerated human pose estimation on AMD Versal AI Engines (VCK5000).</p>
+                            <p class="text-black-50">My journey as an engineer is quite unique featuring a lot of twists and turns. My engineering mentality is heavily influenced by an avante-garde approach to learning computer science outlined by George Hotz in a document labeled "From the Transistor to the Web Browser". In this document, Hotz tears down flaws in modern computer science curriculum and introduces a more radical approach.</p>
+                            <p class="text-black-50 mb-0">Always open to opportunities and happy to connect so feel free to message me anytime!</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="skills" role="tabpanel" aria-labelledby="skills-tab">
+                        <div class="project-panel">
+                            <h4>Brief Overview of skills</h4>
+                            <p class="mb-2"><strong>FPGA / RTL / HLS</strong><br>RTL design: VHDL, SystemVerilog<br>FPGA toolchains: AMD/Xilinx ISE, Vivado, Vitis; Intel Quartus Prime<br>HLS &amp; modeling: C/C++, SystemC, MATLAB/Simulink, HDL Coder; Cadence Stratus; Siemens Catapult<br>Simulation &amp; debug: Questa, ModelSim; Cadence Xcelium</p>
+                            <p class="mb-2"><strong>DSP / RF Systems</strong><br>DSP blocks &amp; datapaths: FIR/FFT, high-speed streaming datapaths, performance/latency benchmarking<br>RF/EM tools: CST Studio, HFSS<br>Systems exposure: RF/SDR FPGA programs, MicroBlaze control, high-speed ADC systems</p>
+                            <p class="mb-2"><strong>Embedded Software / Firmware</strong><br>Languages: C, C++, Python, Java, Bash, Assembly (incl. MIPS)<br>Firmware/software integration: embedded development and FPGA/MCU co-design workflows</p>
+                            <p class="mb-2"><strong>ML / AI Deployment &amp; Model Tooling</strong><br>Model formats &amp; pipelines: ONNX, TFLite, Python-based inference workflows<br>Applied CV: pose-estimation pipeline integration and deployment</p>
+                            <p class="mb-2"><strong>Networking &amp; Protocol Debug</strong><br>Networking: TCP/UDP socket programming (C/C++)<br>Debug: Wireshark</p>
+                            <p class="mb-2"><strong>Dev Tools / CI / Software Engineering</strong><br>Version control &amp; build: Git; Maven/Gradle<br>CI &amp; lifecycle: Jenkins, JIRA, Bitbucket<br>Testing: unit testing (Mockito)</p>
+                            <p class="mb-2"><strong>Open Source EDA &amp; Emulation</strong><br>Tooling: QEMU, Verilator, Yosys</p>
+                            <p class="mb-2"><strong>Hardware / PCB / Lab</strong><br>Circuit/PCB: LTSpice, Altium, KiCad<br>Bench equipment: oscilloscope, function generator, DMM, network analyzer<br>Hands-on: soldering</p>
+                            <p class="mb-0"><strong>Web</strong><br>Frontend basics: HTML, CSS</p>
+                        </div>
                     </div>
                 </div>
-                <img class="img-fluid" src="assets/img/webicon.png" alt="" />
+                <img class="img-fluid mt-4" src="assets/img/webicon.png" alt="" />
             </div>
         </section>
         <!-- Projects-->
         <section class="projects-section bg-light" id="projects">
             <div class="container">
-                <!-- Featured Project Row-->
-                <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/devboard.jpg" alt="" /></div>
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="featured-text text-center text-lg-left">
-                            <h4>Development Boards</h4>
-                            <p class="text-black-50 mb-0">The board on the left is a raspberry pi zero w. Using a linux based operating system, I configured it to act as a portable server. Although the board itself is quite tiny, I am able to use adapters to connect 4 terrabytes of storage and easily access the space through a simple wifi connection.
-                            The board on the right is a PIC32MM Curiosity Development Board. Although no practical uses have been implemented, I configured the board to alternate between 4 LED states using the 2 switches using interrupts and an integrated 555 timer.</p>
-                            <hr class="d-none d-lg-block mb-0 ml-0" />
+                <div class="text-center mb-5">
+                    <h2 class="text-black mb-3">Projects</h2>
+                </div>
+                <ul class="nav nav-tabs justify-content-center project-tabs" id="projectTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="from-transistor-tab" data-toggle="tab" href="#from-transistor" role="tab" aria-controls="from-transistor" aria-selected="true">From the Transistor (RISC-V)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="stock-tab" data-toggle="tab" href="#stock" role="tab" aria-controls="stock" aria-selected="false">Hardware Accelerated Stock Prediction (LSTM RNN)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pose-accel-tab" data-toggle="tab" href="#pose-accel" role="tab" aria-controls="pose-accel" aria-selected="false">Hardware Accelerated Body Pose Estimation (Blazepose)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pose-app-tab" data-toggle="tab" href="#pose-app" role="tab" aria-controls="pose-app" aria-selected="false">Pose Detection App</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="network-tab" data-toggle="tab" href="#network" role="tab" aria-controls="network" aria-selected="false">Socket-based network programming (TCP/UDP)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pi-pic32-tab" data-toggle="tab" href="#pi-pic32" role="tab" aria-controls="pi-pic32" aria-selected="false">Raspberry PI Server &amp; PIC32MM</a>
+                    </li>
+                </ul>
+                <div class="tab-content project-tab-content" id="projectTabContent">
+                    <div class="tab-pane fade show active" id="from-transistor" role="tabpanel" aria-labelledby="from-transistor-tab">
+                        <div class="project-panel">
+                            <h4>From the Transistor (RISC-V)</h4>
+                            <p class="mb-0 text-black-50">A project idea developed by George Hotz. See my project page for the evolving notes and section-by-section progress: <a href="fromtran.html">From the Transistor to the Web Browser</a>.</p>
                         </div>
                     </div>
-                </div>
-                <!-- Project One Row-->
-                <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/fromtransistor.jpg" alt="" /></div>
-                    <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white"><a href="fromtran.html">From the Transistor to the Web Browser</a></h4>
-                                    <p class="mb-0 text-white-50">A project idea developed by super hacker and CEO of Comma AI George Hots. Here is my rendition and attempt at the project.</p>
-                                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                                </div>
-                            </div>
+                    <div class="tab-pane fade" id="stock" role="tabpanel" aria-labelledby="stock-tab">
+                        <div class="project-panel">
+                            <h4>Hardware Accelerated Stock Prediction (LSTM RNN)</h4>
                         </div>
                     </div>
-                </div>
-                <!-- Project Two Row-->
-                <div class="row justify-content-center no-gutters">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/programming.jpg" alt="" /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Programming</h4>
-                                    <p class="mb-0 text-white-50">I have a variety of programing experience from languages ranging from C to objected oriented languages such as Java and C++ to assembly languages such as MIPS. My exploits as a programmer is better documented in my Github which can be easily accessed at the bottom of this page.</p>
-                                    <hr class="d-none d-lg-block mb-0 mr-0" />
-                                </div>
-                            </div>
+                    <div class="tab-pane fade" id="pose-accel" role="tabpanel" aria-labelledby="pose-accel-tab">
+                        <div class="project-panel">
+                            <h4>Hardware Accelerated Body Pose Estimation (Blazepose)</h4>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pose-app" role="tabpanel" aria-labelledby="pose-app-tab">
+                        <div class="project-panel">
+                            <h4>Pose Detection App</h4>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="network" role="tabpanel" aria-labelledby="network-tab">
+                        <div class="project-panel">
+                            <h4>Socket-based network programming (TCP/UDP)</h4>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pi-pic32" role="tabpanel" aria-labelledby="pi-pic32-tab">
+                        <div class="project-panel">
+                            <h4>Raspberry PI Server &amp; PIC32MM</h4>
+                            <p class="mb-0 text-black-50">The board on the left is a Raspberry Pi Zero W. Using a Linux-based operating system, I configured it to act as a portable server. Although the board itself is quite tiny, I am able to use adapters to connect 4 terabytes of storage and easily access the space through a simple Wi-Fi connection. The board on the right is a PIC32MM Curiosity Development Board. Although no practical uses have been implemented, I configured the board to alternate between 4 LED states using the 2 switches, interrupts, and an integrated 555 timer.</p>
                         </div>
                     </div>
                 </div>
