@@ -10333,3 +10333,46 @@ body {
 .footer {
   padding: 5rem 0;
 }
+.project-tabs {
+  border-bottom: 0;
+  gap: 0.5rem;
+}
+
+.project-tabs .nav-link {
+  border: 1px solid #d5d5d5;
+  color: #343a40;
+  border-radius: 0.25rem;
+}
+
+.project-tabs .nav-link.active,
+.project-tabs .nav-link:hover {
+  color: #fff;
+  background-color: #64a19d;
+  border-color: #64a19d;
+}
+
+.project-tab-content {
+  margin-top: 1.5rem;
+}
+
+.project-panel {
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 0.25rem;
+  padding: 2rem;
+}
+
+.about-tabs .nav-link {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.about-tabs .nav-link.active,
+.about-tabs .nav-link:hover {
+  color: #fff;
+  border-color: #64a19d;
+}
+
+.project-tabs .nav-item {
+  margin-bottom: 0.5rem;
+}
