@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raspberry PI Server & PIC32MM - Vibishan Wigneswaran</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #2d2d2d;
+            --accent: #00bcd4;
+            --accent-hover: #00acc1;
+            --text: #ffffff;
+            --text-dim: #b0b0b0;
+            --surface: #252525;
+            --surface-light: #2d2d2d;
+            --border: #3d3d3d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .back-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            background: 
+                linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at top, rgba(0, 188, 212, 0.03), transparent 60%);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .project-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-section h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .project-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-dim);
+        }
+
+        .project-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-section li {
+            color: var(--text);
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .project-section li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .project-section {
+                padding: 2rem;
+            }
+
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .content {
+                max-width: 1400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">VW</a>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Raspberry PI Server & PIC32MM</h1>
+        <p class="hero-subtitle">Embedded systems projects: portable server and microcontroller programming</p>
+    </section>
+
+    <div class="content">
+        <div class="project-section">
+            <h2>Raspberry Pi Zero W Portable Server</h2>
+            <p>
+                Configured a Raspberry Pi Zero W to act as a compact, portable server with significant storage capacity. Despite the board's tiny footprint, the system provides network-accessible storage and demonstrates the versatility of Linux-based embedded computing.
+            </p>
+            
+            <h3>System Configuration</h3>
+            <ul>
+                <li>Platform: Raspberry Pi Zero W with WiFi connectivity</li>
+                <li>Operating System: Raspberry Pi OS (Linux-based)</li>
+                <li>Storage: 4TB external storage via USB adapters</li>
+                <li>Network: WiFi-based file server accessible over local network</li>
+                <li>Services: Samba/NFS for network file sharing</li>
+            </ul>
+
+            <h3>Key Features</h3>
+            <ul>
+                <li>Portable network-attached storage (NAS) solution</li>
+                <li>Remote access via SSH for administration</li>
+                <li>Low power consumption for always-on operation</li>
+                <li>File synchronization and backup capabilities</li>
+                <li>Media server for streaming content</li>
+            </ul>
+
+            <h3>Use Cases</h3>
+            <p>
+                This portable server serves as a personal cloud storage solution, providing wireless access to files from any device on the network. The compact form factor makes it ideal for travel, backup purposes, and as a development platform for testing server applications.
+            </p>
+        </div>
+
+        <div class="project-section">
+            <h2>PIC32MM Curiosity Development Board</h2>
+            <p>
+                Programming and experimentation with the PIC32MM microcontroller, focusing on fundamental embedded concepts including GPIO control, interrupts, and hardware timers. This project demonstrates low-level firmware development and hardware interaction.
+            </p>
+            
+            <h3>Implementation Details</h3>
+            <ul>
+                <li>Platform: Microchip PIC32MM Curiosity Development Board</li>
+                <li>Programming: C language for embedded firmware</li>
+                <li>Development Tools: MPLAB X IDE, XC32 compiler</li>
+                <li>Features: 4 LED states controlled by switches and timer</li>
+                <li>Hardware: Integrated 555 timer circuit for timing operations</li>
+            </ul>
+
+            <h3>Technical Components</h3>
+            <ul>
+                <li>GPIO configuration for LED and switch control</li>
+                <li>Interrupt service routines (ISRs) for switch inputs</li>
+                <li>Timer configuration using 555 timer integration</li>
+                <li>State machine implementation for LED patterns</li>
+                <li>Debouncing logic for reliable switch detection</li>
+            </ul>
+
+            <h3>Learning Outcomes</h3>
+            <p>
+                This project provided hands-on experience with microcontroller programming, interrupt-driven design, and hardware-software integration. Working with the PIC32MM reinforced concepts in embedded systems development, register-level programming, and real-time constraints.
+            </p>
+        </div>
+
+        <div class="project-section">
+            <h2>Embedded Systems Concepts</h2>
+            <p>
+                Both projects demonstrate different aspects of embedded computing: the Raspberry Pi showcases Linux-based embedded systems with networking capabilities, while the PIC32MM represents bare-metal microcontroller programming with direct hardware control.
+            </p>
+            <p>
+                These complementary experiences provide a broad foundation in embedded development, from high-level operating systems to low-level firmware, essential for modern hardware-software co-design work.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright © Vibishan Wigneswaran 2020-2025</p>
+    </footer>
+</body>
+</html>

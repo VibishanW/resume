@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware Accelerated Stock Prediction - Vibishan Wigneswaran</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #2d2d2d;
+            --accent: #00bcd4;
+            --accent-hover: #00acc1;
+            --text: #ffffff;
+            --text-dim: #b0b0b0;
+            --surface: #252525;
+            --surface-light: #2d2d2d;
+            --border: #3d3d3d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .back-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            background: 
+                linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at top, rgba(0, 188, 212, 0.03), transparent 60%);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .project-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-section h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .project-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-dim);
+        }
+
+        .project-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-section li {
+            color: var(--text);
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .project-section li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .project-section {
+                padding: 2rem;
+            }
+
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .content {
+                max-width: 1400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">VW</a>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Hardware Accelerated Stock Prediction</h1>
+        <p class="hero-subtitle">LSTM RNN implementation on FPGA for high-performance time-series prediction</p>
+    </section>
+
+    <div class="content">
+        <div class="project-section">
+            <h2>Project Overview</h2>
+            <p>
+                This project explores the implementation of Long Short-Term Memory (LSTM) Recurrent Neural Networks on FPGA hardware for accelerated stock market prediction. By leveraging hardware parallelism and optimized inference pipelines, the system achieves significant performance improvements over traditional CPU-based approaches.
+            </p>
+            <p>
+                The project demonstrates the viability of deploying complex neural network architectures on specialized hardware for real-time financial analysis and prediction tasks.
+            </p>
+        </div>
+
+        <div class="project-section">
+            <h2>Technical Implementation</h2>
+            
+            <h3>Key Components</h3>
+            <ul>
+                <li>LSTM neural network architecture optimized for hardware acceleration</li>
+                <li>Custom datapath design for matrix operations and activation functions</li>
+                <li>High-speed data streaming interfaces for real-time market data ingestion</li>
+                <li>Inference pipeline with optimized memory access patterns</li>
+                <li>Hardware-software co-design for model deployment and testing</li>
+            </ul>
+
+            <h3>Technologies Used</h3>
+            <ul>
+                <li>FPGA Development: Xilinx Vivado, Vitis HLS</li>
+                <li>HDL: VHDL, SystemVerilog</li>
+                <li>ML Frameworks: TensorFlow, PyTorch for model training</li>
+                <li>Model Optimization: ONNX format for hardware deployment</li>
+                <li>Programming: Python, C/C++ for verification and testing</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h2>Results & Insights</h2>
+            <p>
+                The hardware-accelerated implementation demonstrates the potential for deploying advanced machine learning models on FPGAs for latency-critical applications. The project explores trade-offs between model accuracy, hardware resource utilization, and inference throughput.
+            </p>
+            <p>
+                Future work includes exploring quantization techniques, multi-model ensembles, and integration with real-time trading systems.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright © Vibishan Wigneswaran 2020-2025</p>
+    </footer>
+</body>
+</html>

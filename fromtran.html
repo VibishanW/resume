@@ -1,217 +1,400 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="Vibishan Wigneswaran" />
-    <title>From the transistor</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From the Transistor to the Web Browser - Vibishan Wigneswaran</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #2d2d2d;
+            --accent: #00bcd4;
+            --accent-hover: #00acc1;
+            --text: #ffffff;
+            --text-dim: #b0b0b0;
+            --surface: #252525;
+            --surface-light: #2d2d2d;
+            --border: #3d3d3d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .back-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            background: 
+                linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at top, rgba(0, 188, 212, 0.03), transparent 60%);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Content */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .intro-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .intro-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-section a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        .intro-section a:hover {
+            border-color: transparent;
+            color: var(--accent-hover);
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--surface-light);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .section-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 40px rgba(0, 188, 212, 0.2);
+        }
+
+        .section-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-card h3 {
+            color: var(--accent);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .section-card p {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .section-card li {
+            color: var(--text);
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .section-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 188, 212, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .status-badge.planned {
+            background: rgba(176, 176, 176, 0.1);
+            border-color: var(--text-dim);
+            color: var(--text-dim);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .section-card {
+                padding: 2rem;
+            }
+
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .content {
+                max-width: 1400px;
+            }
+        }
+    </style>
 </head>
-<body id="page-top">
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">A Showcase of Skill by Vibishan Wigneswaran</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Homepage</a></li>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">VW</a>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>From the Transistor to the Web Browser</h1>
+        <p class="hero-subtitle">A comprehensive journey through computer engineering, inspired by George Hotz's radical approach to learning</p>
+    </section>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Introduction -->
+        <div class="intro-section">
+            <p>
+                A project idea developed by <a href="https://github.com/geohot/fromthetransistor" target="_blank">George Hotz</a>. This ambitious undertaking follows Hotz's vision of understanding computer systems from first principles - literally starting with transistors and building up to a complete web browser.
+            </p>
+            <p>
+                My engineering mentality is heavily influenced by an avant-garde approach to learning computer science outlined by George Hotz in a document labeled "From the Transistor to the Web Browser". In this document, Hotz tears down flaws in modern computer science curriculum and introduces a more radical approach.
+            </p>
+            <p>
+                Below you'll find my evolving notes and section-by-section progress through this journey. Each section represents a fundamental layer of computing, built upon the previous foundations.
+            </p>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section-card">
+            <div class="section-number">02</div>
+            <h2>What Language is Hardware Coded In?</h2>
+            
+            <h3>Objectives</h3>
+            <ul>
+                <li>Test an FPGA by blinking an LED</li>
+                <li>Build a simple UART communication interface</li>
+                <li>Get hands-on experience with Verilog/VHDL</li>
             </ul>
+            
+            <p>
+                This section was meant to get my feet wet with hardware description languages (Verilog/VHDL). With my current professional experience in FPGA development, I decided to move straight to Section 3 for now. I plan to circle back to this foundational exercise to document the learning process for others.
+            </p>
+            
+            <span class="status-badge planned">Planned - Will Revisit</span>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section-card">
+            <div class="section-number">03</div>
+            <h2>Processor: What is a Processor Anyway?</h2>
+            
+            <h3>Building Blocks</h3>
+            <ul>
+                <li>An assembler in Python</li>
+                <li>A simple Single-Cycle RISC-V processor in VHDL</li>
+                <li>A bootrom for initial program loading</li>
+            </ul>
+            
+            <p>
+                In this section, I dive deep into processor architecture by implementing a complete RISC-V processor from scratch. This involves understanding instruction sets, designing the datapath and control logic, and creating the toolchain necessary to program it.
+            </p>
+            
+            <span class="status-badge">In Progress</span>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="section-card">
+            <div class="section-number">04</div>
+            <h2>Compiler</h2>
+            
+            <h3>Building the Software Stack</h3>
+            <ul>
+                <li>A C compiler and parser in Haskell</li>
+                <li>A linker in Python</li>
+                <li>Libc + malloc implementation in C</li>
+                <li>An ethernet controller</li>
+                <li>A bootloader</li>
+            </ul>
+            
+            <p>
+                This section bridges the gap between hardware and high-level programming. By building a complete C compiler toolchain, I'll understand how source code transforms into machine instructions that run on the processor built in Section 3.
+            </p>
+            
+            <span class="status-badge planned">Planned</span>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="section-card">
+            <div class="section-number">05</div>
+            <h2>Operating System</h2>
+            
+            <h3>System Software Components</h3>
+            <ul>
+                <li>Build an MMU (Memory Management Unit) in VHDL</li>
+                <li>Build an Operating System in C</li>
+                <li>Add SD card interface</li>
+                <li>Implement FAT Filesystem in C</li>
+                <li>Add Shell functionality in C</li>
+            </ul>
+            
+            <p>
+                The operating system layer provides abstraction between hardware and applications. This section involves creating memory management, file systems, and a user interface - the essential components that make a computer usable.
+            </p>
+            
+            <span class="status-badge planned">Planned</span>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="section-card">
+            <div class="section-number">06</div>
+            <h2>Browser</h2>
+            
+            <h3>Networking and Applications</h3>
+            <ul>
+                <li>TCP stack implementation in C</li>
+                <li>telnetd for multiprocessing in C</li>
+                <li>Dynamic linking in C</li>
+                <li>Web browser in C</li>
+            </ul>
+            
+            <p>
+                The culmination of the software stack - implementing network protocols and building a web browser. This demonstrates how modern applications leverage all the layers built in previous sections, from transistors to high-level networking.
+            </p>
+            
+            <span class="status-badge planned">Planned</span>
+        </div>
+
+        <!-- Section 7 -->
+        <div class="section-card">
+            <div class="section-number">07</div>
+            <h2>Physical Implementation</h2>
+            
+            <h3>Hardware Realization</h3>
+            <ul>
+                <li>Add USB MCU to JTAG functionality in C</li>
+                <li>Build and test everything on actual hardware</li>
+                <li>Optional functionality and optimizations</li>
+            </ul>
+            
+            <p>
+                The final section brings everything into the physical world. Taking the complete system from simulation to actual silicon, testing on real FPGA hardware, and validating that every layer works together as designed.
+            </p>
+            
+            <span class="status-badge planned">Planned</span>
         </div>
     </div>
-</nav>
-<!-- Masthead-->
-<header class="masthead">
-    <div class="container d-flex h-100 align-items-center">
-        <div class="mx-auto text-center">
-            <h1 class="mx-auto my-0 text-uppercase">From the Transistor to the Web Browser</h1>
-            <h2 class="text-white-50 mx-auto mt-2 mb-5">A project idea developed by super hacker and CEO of Comma AI George Hots. Here is my rendition and attempt at the project</h2>
-        </div>
-    </div>
-</header>
 
-<!-- Projects-->
-<section class="projects-section bg-light" id="project">
-    <div class="container">
-        <!-- section 1-->
-        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>Section 1: Intro: Cheating our way past the transistor</h4>
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/sec1/IC.jpg" alt="" /></div>
-                    <p class="text-black-50 mb-0">A basic understanding of transistors:<br>
-                        Transistors use current(BJT) or voltage(MOSFET) to regulate the current influx through a circuit.
-                        This is especially convenient for basic operations such as logic gates.
-                    </p>
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/sec1/Nand.PNG" alt="" /></div>
-                    <p class="text-black-50 mb-0">Basic logic gates using transistors:<br>
-                        Using resistors, npn transistors, and input sources, I can replicate the properties of various logic gates.
-                        Using LTSpice I simulate a nand gate using 2 npn transistors and output the values of the output voltage based on the 2 input voltages.
-                        As you can see the output voltage is low whenever input A and B are high. Using this theory for basic logic gates i can create even more complex circuits to represent more high functioning logic tasks.
-                    </p>
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/sec1/Mux.PNG" alt="" /></div>
-                    <p class="text-black-50 mb-0">What is a mux?<br>
-                        A mux, or multiplexer uses logic to pass input values to the output depending on selector values. Using LTSpice i simulated a circuit to represent a 2 x 1 mux using and gates, or gates, and inverters.
-                        Muxes simplify the process of passing output values using selectors and is a core design concept in engineering.
-                    </p>
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/sec1/ActiveHighLatch.PNG" alt="" /></div>
-                    <p class="text-black-50 mb-0">What is a latch?<br>
-                        A latch uses logic to store data in the form of a 0 or 1. Using a set and reset switch, the values being stored can be manipulated.
-                        Latches come in 2 distinct forms: active-high and active-low. Active-high SR latches switch states when a 1 or high value is set while active-low switches states when a 0 or low value is set.
-                        Logically, an active-high SR latch uses NOR gates and an active-low SR latch uses NAND gates.
-                    </p>
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/sec1/flipflop.jpg" alt="" /></div>
-                    <p class="text-black-50 mb-0">What are flip flops?<br>
-                        Flip flops are essentially latches(circuits/logic gates) that store states. The potential values for these latches can be found through truth/lookup tables.
-                        There are 2 primary types of flip flops, RS flip-flops and D flip-flops. RS flip-flops are unclocked and are esenetially the same as latches(as mentioned above). Whereas D flip=flops are clocked latches that use a
-                        consistant square wave and a second set of gates nand or nor gates(whether its acitve high or low). The purpose of a D flip-flop is to ensure that R and S are never equal at any point in time using a clock pulse.
-                    </p>
-                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                </div>
-            </div>
-        </div>
-
-        <!-- section 2-->
-        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>Section 2: Bringup: What language is hardware coded in?</h4>
-                    <p class="text-black-50 mb-0">The board on the left is a raspberry pi zero w. Using a linux based operating system, I configured it to act as a portable server. Although the board itself is quite tiny, I am able to use adapters to connect 4 terrabytes of storage and easily access the space through a simple wifi connection.
-                        The board on the right is a PIC32MM Curiosity Development Board. Although no practical uses have been implemented, I configured the board to alternate between 4 LED states using the 2 switches using interrupts and an integrated 555 timer.</p>
-                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                </div>
-            </div>
-        </div>
-
-        <!-- section 3-->
-        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/devboard.jpg" alt="" /></div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>Section 3: Processor: What is a processor anyway?</h4>
-                    <p class="text-black-50 mb-0">The board on the left is a raspberry pi zero w. Using a linux based operating system, I configured it to act as a portable server. Although the board itself is quite tiny, I am able to use adapters to connect 4 terrabytes of storage and easily access the space through a simple wifi connection.
-                        The board on the right is a PIC32MM Curiosity Development Board. Although no practical uses have been implemented, I configured the board to alternate between 4 LED states using the 2 switches using interrupts and an integrated 555 timer.</p>
-                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                </div>
-            </div>
-        </div>
-
-        <!-- section 4-->
-        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/devboard.jpg" alt="" /></div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>Section 4: Compiler: A “high” level language</h4>
-                    <p class="text-black-50 mb-0">The board on the left is a raspberry pi zero w. Using a linux based operating system, I configured it to act as a portable server. Although the board itself is quite tiny, I am able to use adapters to connect 4 terrabytes of storage and easily access the space through a simple wifi connection.
-                        The board on the right is a PIC32MM Curiosity Development Board. Although no practical uses have been implemented, I configured the board to alternate between 4 LED states using the 2 switches using interrupts and an integrated 555 timer.</p>
-                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                </div>
-            </div>
-        </div>
-
-        <!-- section 5-->
-        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/devboard.jpg" alt="" /></div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>Section 5: Operating System: Software we take for granted</h4>
-                    <p class="text-black-50 mb-0">The board on the left is a raspberry pi zero w. Using a linux based operating system, I configured it to act as a portable server. Although the board itself is quite tiny, I am able to use adapters to connect 4 terrabytes of storage and easily access the space through a simple wifi connection.
-                        The board on the right is a PIC32MM Curiosity Development Board. Although no practical uses have been implemented, I configured the board to alternate between 4 LED states using the 2 switches using interrupts and an integrated 555 timer.</p>
-                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                </div>
-            </div>
-        </div>
-
-        <!-- section 6-->
-        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/devboard.jpg" alt="" /></div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>Section 6: Browser: Coming online</h4>
-                    <p class="text-black-50 mb-0">The board on the left is a raspberry pi zero w. Using a linux based operating system, I configured it to act as a portable server. Although the board itself is quite tiny, I am able to use adapters to connect 4 terrabytes of storage and easily access the space through a simple wifi connection.
-                        The board on the right is a PIC32MM Curiosity Development Board. Although no practical uses have been implemented, I configured the board to alternate between 4 LED states using the 2 switches using interrupts and an integrated 555 timer.</p>
-                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                </div>
-            </div>
-        </div>
-
-        <!-- section 7-->
-        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-            <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/devboard.jpg" alt="" /></div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4>Section 7: Physical: Running on real hardware</h4>
-                    <p class="text-black-50 mb-0">The board on the left is a raspberry pi zero w. Using a linux based operating system, I configured it to act as a portable server. Although the board itself is quite tiny, I am able to use adapters to connect 4 terrabytes of storage and easily access the space through a simple wifi connection.
-                        The board on the right is a PIC32MM Curiosity Development Board. Although no practical uses have been implemented, I configured the board to alternate between 4 LED states using the 2 switches using interrupts and an integrated 555 timer.</p>
-                    <hr class="d-none d-lg-block mb-0 ml-0" />
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
-<!-- Contact-->
-<section class="contact-section bg-black">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 mb-3 mb-md-0">
-                <div class="card py-4 h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                        <h4 class="text-uppercase m-0">Location</h4>
-                        <hr class="my-4" />
-                        <div class="small text-black-50">Based in Massachusetts</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-                <div class="card py-4 h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-envelope text-primary mb-2"></i>
-                        <h4 class="text-uppercase m-0">Email</h4>
-                        <hr class="my-4" />
-                        <div class="small text-black-50"><a href="#!">vibish11@gmail.com</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-3 mb-md-0">
-                <div class="card py-4 h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                        <h4 class="text-uppercase m-0">Phone</h4>
-                        <hr class="my-4" />
-                        <div class="small text-black-50">+1 (781) 864-1773</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="social d-flex justify-content-center">
-            <a class="mx-2" href="https://www.linkedin.com/in/vibishan-wigneswaran-402965187"><i class="fab fa-linkedin"></i></a>
-            <a class="mx-2" href="#!"><i class="fab fa-envelope"></i></a>
-            <a class="mx-2" href="https://github.com/Outerheaven1234"><i class="fab fa-github"></i></a>
-        </div>
-    </div>
-</section>
-<!-- Footer-->
-<footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Vibishan Wigneswaran 2020</div></footer>
-<!-- Bootstrap core JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Third party plugin JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+    <!-- Footer -->
+    <footer>
+        <p>Copyright © Vibishan Wigneswaran 2020-2025</p>
+    </footer>
 </body>
 </html>
