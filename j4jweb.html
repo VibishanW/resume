@@ -95,17 +95,25 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
-        video, canvas {
+        video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: contain;
+            z-index: 1;
         }
 
         canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             z-index: 2;
+            pointer-events: none;
         }
 
         /* Controls */
@@ -248,6 +256,12 @@
                     <button onclick="startCamera()">Start Camera</button>
                     <button onclick="stopCamera()">Stop Camera</button>
                 </div>
+                <div class="stats" id="liveStats" style="display: none; margin-top: 20px;">
+                    <div class="stat-item">
+                        <div class="stat-label">Poses Detected</div>
+                        <div class="stat-value" id="poseStatus">Waiting...</div>
+                    </div>
+                </div>
             </div>
 
             <!-- Software Page -->
@@ -337,6 +351,7 @@
                 // Show video containers and controls
                 document.getElementById('videoContainer').style.display = 'block';
                 document.getElementById('controls').style.display = 'flex';
+                document.getElementById('liveStats').style.display = 'block';
                 document.getElementById('videoContainerSoftware').style.display = 'block';
                 document.getElementById('controlsSoftware').style.display = 'flex';
                 document.getElementById('stats').style.display = 'block';
@@ -395,9 +410,24 @@
             try {
                 const poses = await detector.estimatePoses(video);
                 
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // Update status
+                const statusEl = document.getElementById('poseStatus');
+                if (statusEl) {
+                    if (poses.length > 0) {
+                        statusEl.textContent = `${poses.length} person(s)`;
+                        statusEl.style.color = '#4caf50';
+                    } else {
+                        statusEl.textContent = 'No pose detected';
+                        statusEl.style.color = '#ff9800';
+                    }
+                }
                 
+                // Draw video frame to canvas first
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                // Then draw skeleton overlay
                 if (poses.length > 0) {
+                    console.log('Drawing skeleton for', poses.length, 'pose(s)');
                     drawSkeleton(poses, ctx);
                 }
             } catch (error) {
@@ -486,15 +516,21 @@
 
         function drawSkeleton(poses, context) {
             poses.forEach(pose => {
-                if (!pose.keypoints) return;
+                if (!pose.keypoints || pose.keypoints.length === 0) {
+                    console.log('No keypoints detected');
+                    return;
+                }
                 
                 // Draw keypoints
                 pose.keypoints.forEach(keypoint => {
-                    if (keypoint.score > 0.3) {
+                    if (keypoint && keypoint.score > 0.3) {
                         context.beginPath();
-                        context.arc(keypoint.x, keypoint.y, 5, 0, 2 * Math.PI);
+                        context.arc(keypoint.x, keypoint.y, 6, 0, 2 * Math.PI);
                         context.fillStyle = '#ff5722';
                         context.fill();
+                        context.strokeStyle = '#ffffff';
+                        context.lineWidth = 2;
+                        context.stroke();
                     }
                 });
                 
@@ -510,7 +546,8 @@
                 ];
                 
                 context.strokeStyle = '#00bcd4';
-                context.lineWidth = 3;
+                context.lineWidth = 4;
+                context.lineCap = 'round';
                 
                 connections.forEach(([i, j]) => {
                     const kp1 = pose.keypoints[i];
