@@ -1,573 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Showcase of Skill by Vibishan Wigneswaran</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1a1a1a;
-            --secondary: #2d2d2d;
-            --accent: #00bcd4;
-            --accent-hover: #00acc1;
-            --text: #ffffff;
-            --text-dim: #b0b0b0;
-            --surface: #252525;
-            --surface-light: #2d2d2d;
-            --border: #3d3d3d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'JetBrains Mono', monospace;
-            background: var(--primary);
-            color: var(--text);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(26, 26, 26, 0.98);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: var(--accent);
-            text-decoration: none;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.3s;
-            position: relative;
-            padding: 0.5rem 0;
-            white-space: nowrap;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8rem 2rem 4rem;
-            background: 
-                linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, transparent 50%),
-                radial-gradient(ellipse at top, rgba(0, 188, 212, 0.03), transparent 60%);
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-            color: var(--text);
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 2vw, 1.4rem);
-            color: var(--text-dim);
-            max-width: 800px;
-            margin-bottom: 3rem;
-            line-height: 1.8;
-        }
-
-        /* Content Sections */
-        section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 6rem 2rem;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 900;
-            margin-bottom: 3rem;
-            color: var(--text);
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Bio Section */
-        #bio {
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 4rem;
-            margin: 4rem auto;
-            max-width: 1200px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-        }
-
-        .bio-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .bio-text p {
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-            line-height: 1.8;
-        }
-
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .skill-card {
-            background: var(--surface-light);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 8px 24px rgba(0, 188, 212, 0.2);
-        }
-
-        .skill-card h4 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .skill-card p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: var(--text-dim);
-        }
-
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2.5rem;
-            margin-top: 3rem;
-        }
-
-        .project-card {
-            background: var(--surface-light);
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            transition: all 0.4s;
-            position: relative;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 188, 212, 0.1), rgba(0, 188, 212, 0.05));
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(0, 188, 212, 0.2);
-        }
-
-        .project-content {
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .project-card h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        .project-card p {
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .project-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            transition: transform 0.3s, color 0.3s;
-        }
-
-        .project-link:hover {
-            transform: translateX(5px);
-            color: var(--accent-hover);
-        }
-
-        /* Contact Section */
-        #signup {
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 4rem;
-            text-align: center;
-            border: 1px solid var(--border);
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .contact-item h4 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .contact-item p, .contact-item a {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-size: 0.95rem;
-        }
-
-        .contact-item a:hover {
-            color: var(--accent);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border);
-        }
-
-        /* Mobile Menu Toggle */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--accent);
-            transition: all 0.3s;
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav-links {
-                gap: 1rem;
-            }
-            
-            .nav-links a {
-                font-size: 0.8rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                padding: 1rem 1.5rem;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: var(--primary);
-                flex-direction: column;
-                gap: 0;
-                padding: 1rem 0;
-                border-top: 1px solid var(--border);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                display: block;
-                padding: 1rem 2rem;
-                width: 100%;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .bio-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-            #bio {
-                padding: 2rem;
-            }
-
-            .hero {
-                padding: 6rem 1.5rem 3rem;
-            }
-        }
-
-        @media (min-width: 1400px) {
-            section {
-                max-width: 1400px;
-            }
-
-            .hero-content {
-                max-width: 1400px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">VW</a>
-            <div class="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#bio">Bio</a></li>
-                <li><a href="fromtran.html">From the Transistor</a></li>
-                <li><a href="stock-prediction.html">LSTM RNN</a></li>
-                <li><a href="blazepose-accelerator.html">Blazepose</a></li>
-                <li><a href="pose-detection-app.html">Pose App</a></li>
-                <li><a href="socket-networking.html">TCP/UDP</a></li>
-                <li><a href="raspberrypi-pic32mm.html">Raspberry PI</a></li>
-                <li><a href="#signup">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Welcome to my page!</h1>
-            <p class="hero-subtitle">
-                My name is Vibi and I created this site to help showcase some of the engineering related work I've done over the years. The contents of this website primarily serve to hopefully entice employers, educate fellow engineers, and act as a public record for when I want to look back at my work. Most importantly, it helps motivate me to complete my home projects despite my busy lifestyle.
-            </p>
-        </div>
-    </section>
-
-    <!-- Bio Section -->
-    <section id="bio">
-        <h2 class="section-subtitle">Introduction</h2>
-        <h3 class="section-title">About Me</h3>
-        
-        <div class="bio-content">
-            <div class="bio-text">
-                <p>FPGA/embedded engineer with an M.S. in ECE from Northeastern and a B.S. in EECS from UMass Lowell. I work on mission-critical FPGA systems across RF/SDR, high-speed datapaths, and firmware/software integration.</p>
-                
-                <p>I have broad expertise with humble beginnings as a purely backend software engineer developing & maintaining mission planning software before pivoting careers to firmware/hardware. I've had a strong desire to build a multi-faceted understanding of technology from the bud of my career.</p>
-                
-                <p>I decided to double major in Electrical Engineering and Computer Science during my undergrad. This decision was driven by the urge to build a strong foundational base in everything, from how electricity works to the complex use cases driven by application-level algorithms today.</p>
-            </div>
-            
-            <div class="bio-text">
-                <p>After starting my professional career in software, I felt that while my technical abilities improved, my research centered development had dwindled. As a result, I accepted a Masters opportunity at Northeastern University to quench my thirst for deeper knowledge and explore the research side of engineering through the lens of a thesis.</p>
-                
-                <p>Thanks to a strong support network of family, friends, and advisors I successfully completed my master's part-time while continuing my career full-time. Motivated by my broadened knowledge and with the support of my company I shifted to a FPGA/Firmware position midway through my degree to work more closely with hardware.</p>
-                
-                <p>Having completed my master's at the end of 2025 I successfully published a thesis exploring hardware-accelerated human pose estimation on AMD Versal AI Engines (VCK5000).</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-        <h2 class="section-subtitle">Expertise</h2>
-        <h3 class="section-title">Technical Skills</h3>
-        
-        <div class="skills-grid">
-            <div class="skill-card">
-                <h4>FPGA / RTL / HLS</h4>
-                <p>RTL design: VHDL, SystemVerilog<br>
-                FPGA toolchains: AMD/Xilinx ISE, Vivado, Vitis; Intel Quartus Prime<br>
-                HLS & modeling: C/C++, SystemC, MATLAB/Simulink, HDL Coder<br>
-                Simulation: Questa, ModelSim, Cadence Xcelium</p>
-            </div>
-            
-            <div class="skill-card">
-                <h4>DSP / RF Systems</h4>
-                <p>DSP blocks & datapaths: FIR/FFT, high-speed streaming datapaths<br>
-                RF/EM tools: CST Studio, HFSS<br>
-                Systems exposure: RF/SDR FPGA programs, MicroBlaze control</p>
-            </div>
-            
-            <div class="skill-card">
-                <h4>Embedded Software / Firmware</h4>
-                <p>Languages: C, C++, Python, Java, Bash, Assembly (incl. MIPS)<br>
-                Firmware/software integration: embedded development and FPGA/MCU co-design workflows</p>
-            </div>
-            
-            <div class="skill-card">
-                <h4>ML / AI Deployment</h4>
-                <p>Model formats: ONNX, TFLite, Python-based inference workflows<br>
-                Applied CV: pose-estimation pipeline integration and deployment</p>
-            </div>
-            
-            <div class="skill-card">
-                <h4>Networking & Protocol</h4>
-                <p>Networking: TCP/UDP socket programming (C/C++)<br>
-                Debug: Wireshark</p>
-            </div>
-            
-            <div class="skill-card">
-                <h4>Hardware / PCB / Lab</h4>
-                <p>Circuit/PCB: LTSpice, Altium, KiCad<br>
-                Bench equipment: oscilloscope, function generator, DMM<br>
-                Hands-on: soldering</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <h2 class="section-subtitle">Portfolio</h2>
-        <h3 class="section-title">Featured Projects</h3>
-        
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-content">
-                    <h4>From the Transistor (RISC-V)</h4>
-                    <p>A comprehensive project inspired by George Hotz's vision of learning computer science from the ground up. Building everything from transistors to a complete RISC-V processor system.</p>
-                    <a href="fromtran.html" class="project-link">View Project →</a>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="Vibishan Wigneswaran" />
+        <title>A Showcase of Skill by Vibishan Wigneswaran</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="index.html">A Showcase of Skill by Vibishan Wigneswaran</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#bio">Bio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="fromtran.html">From the Transistor</a></li>
+                        <li class="nav-item"><a class="nav-link" href="stock-prediction.html">LSTM RNN</a></li>
+                        <li class="nav-item"><a class="nav-link" href="blazepose-accelerator.html">Blazepose</a></li>
+                        <li class="nav-item"><a class="nav-link" href="pose-detection-app.html">Pose App</a></li>
+                        <li class="nav-item"><a class="nav-link" href="socket-networking.html">TCP/UDP</a></li>
+                        <li class="nav-item"><a class="nav-link" href="raspberrypi-pic32mm.html">Raspberry PI & PIC32MM</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#signup">Contact</a></li>
+                    </ul>
                 </div>
             </div>
-            
-            <div class="project-card">
-                <div class="project-content">
-                    <h4>Hardware Accelerated Stock Prediction</h4>
-                    <p>Implementing LSTM RNN on FPGA hardware for high-performance stock market prediction with optimized inference pipelines.</p>
-                    <a href="stock-prediction.html" class="project-link">View Project →</a>
+        </nav>
+
+        <header class="masthead">
+            <div class="container d-flex h-100 align-items-center">
+                <div class="mx-auto text-center">
+                    <h1 class="mx-auto my-0 text-uppercase">Welcome to my page!</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">My name is Vibi and I created this site to help showcase some of the engineering related work I've done over the years. The contents of this website primarily serve to hopefully entice employers, educate fellow engineers, and act as a public record for when I want to look back at my work. Most importantly, it helps motivate me to complete my home projects despite my busy lifestyle. It's important to remind myself that the work I've put myself through can contribute to the commonfolk and not just corporate internal tools that will never see the light of day :)</h2>
+                    <a class="btn btn-primary js-scroll-trigger" href="#about">My Skills</a>
                 </div>
             </div>
-            
-            <div class="project-card">
-                <div class="project-content">
-                    <h4>Hardware Accelerated Body Pose Estimation</h4>
-                    <p>Master's thesis project implementing Blazepose on AMD Versal AI Engines (VCK5000) for real-time human pose estimation acceleration.</p>
-                    <a href="blazepose-accelerator.html" class="project-link">View Project →</a>
+        </header>
+
+        <section class="projects-section bg-light" id="bio">
+            <div class="container">
+                <ul class="nav nav-tabs justify-content-center project-tabs about-tabs" id="aboutTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="bio-tab" data-toggle="tab" href="#bio" role="tab" aria-controls="bio" aria-selected="true">Bio</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="skills-tab" data-toggle="tab" href="#skills" role="tab" aria-controls="skills" aria-selected="false">Skills</a>
+                    </li>
+                </ul>
+                <div class="tab-content project-tab-content text-left" id="aboutTabContent">
+                    <div class="tab-pane fade show active" id="bio" role="tabpanel" aria-labelledby="bio-tab">
+                        <div class="project-panel">
+                            <h4>Introduction</h4>
+                            <p class="text-black-50">FPGA/embedded engineer with an M.S. in ECE from Northeastern and a B.S. in EECS from UMass Lowell. I work on mission-critical FPGA systems across RF/SDR, high-speed datapaths, and firmware/software integration.</p>
+                            <p class="text-black-50">I have broad expertise with humble beginnings as a purely backend software engineer developing &amp; maintaining mission planning software before pivoting careers to firmware/hardware. I've had a strong desire to build a multi-faceted understanding of technology from the bud of my career. I decided to double major in Electrical Engineering and Computer Science during my undergrad. This decision was driven by the urge to build a strong foundational base in everything, from how electricity works to the complex use cases driven by application-level algorithms today. After starting my professional career in software, I felt that while my technical abilities improved, my research centered development had dwindled. As a result, I accepted a Masters opportunity at Northeastern University to 1. quench my thirst for deeper knowledge and 2. explore the research side of engineering through the lens of a thesis. Thanks to a strong support network of family, friends, and advisors I successfully completed my master's part-time while continuing my career full-time. Motivated by my broadened knowledge and with the support of my company I shifted to a FPGA/Firmware position midway through my degree to work more closely with hardware. Having completed my master's at the end of 2025 I successfully published a thesis exploring hardware-accelerated human pose estimation on AMD Versal AI Engines (VCK5000).</p>
+                            <p class="text-black-50">My journey as an engineer is quite unique featuring a lot of twists and turns. My engineering mentality is heavily influenced by an avante-garde approach to learning computer science outlined by George Hotz in a document labeled "From the Transistor to the Web Browser". In this document, Hotz tears down flaws in modern computer science curriculum and introduces a more radical approach.</p>
+                            <p class="text-black-50 mb-0">Always open to opportunities and happy to connect so feel free to message me anytime!</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="skills" role="tabpanel" aria-labelledby="skills-tab">
+                        <div class="project-panel">
+                            <h4>Brief Overview of skills</h4>
+                            <p class="mb-2"><strong>FPGA / RTL / HLS</strong><br>RTL design: VHDL, SystemVerilog<br>FPGA toolchains: AMD/Xilinx ISE, Vivado, Vitis; Intel Quartus Prime<br>HLS &amp; modeling: C/C++, SystemC, MATLAB/Simulink, HDL Coder; Cadence Stratus; Siemens Catapult<br>Simulation &amp; debug: Questa, ModelSim; Cadence Xcelium</p>
+                            <p class="mb-2"><strong>DSP / RF Systems</strong><br>DSP blocks &amp; datapaths: FIR/FFT, high-speed streaming datapaths, performance/latency benchmarking<br>RF/EM tools: CST Studio, HFSS<br>Systems exposure: RF/SDR FPGA programs, MicroBlaze control, high-speed ADC systems</p>
+                            <p class="mb-2"><strong>Embedded Software / Firmware</strong><br>Languages: C, C++, Python, Java, Bash, Assembly (incl. MIPS)<br>Firmware/software integration: embedded development and FPGA/MCU co-design workflows</p>
+                            <p class="mb-2"><strong>ML / AI Deployment &amp; Model Tooling</strong><br>Model formats &amp; pipelines: ONNX, TFLite, Python-based inference workflows<br>Applied CV: pose-estimation pipeline integration and deployment</p>
+                            <p class="mb-2"><strong>Networking &amp; Protocol Debug</strong><br>Networking: TCP/UDP socket programming (C/C++)<br>Debug: Wireshark</p>
+                            <p class="mb-2"><strong>Dev Tools / CI / Software Engineering</strong><br>Version control &amp; build: Git; Maven/Gradle<br>CI &amp; lifecycle: Jenkins, JIRA, Bitbucket<br>Testing: unit testing (Mockito)</p>
+                            <p class="mb-2"><strong>Open Source EDA &amp; Emulation</strong><br>Tooling: QEMU, Verilator, Yosys</p>
+                            <p class="mb-2"><strong>Hardware / PCB / Lab</strong><br>Circuit/PCB: LTSpice, Altium, KiCad<br>Bench equipment: oscilloscope, function generator, DMM, network analyzer<br>Hands-on: soldering</p>
+                            <p class="mb-0"><strong>Web</strong><br>Frontend basics: HTML, CSS</p>
+                        </div>
+                    </div>
+                </div>
+                <img class="img-fluid mt-4" src="assets/img/webicon.png" alt="" />
+            </div>
+        </section>
+        <!-- Projects-->
+        <section class="projects-section bg-light" id="projects">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <h2 class="text-black mb-3">Projects</h2>
+                </div>
+                <ul class="nav nav-tabs justify-content-center project-tabs" id="projectTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="from-transistor-tab" data-toggle="tab" href="#from-transistor" role="tab" aria-controls="from-transistor" aria-selected="true">From the Transistor (RISC-V)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="stock-tab" data-toggle="tab" href="#stock" role="tab" aria-controls="stock" aria-selected="false">Hardware Accelerated Stock Prediction (LSTM RNN)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pose-accel-tab" data-toggle="tab" href="#pose-accel" role="tab" aria-controls="pose-accel" aria-selected="false">Hardware Accelerated Body Pose Estimation (Blazepose)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pose-app-tab" data-toggle="tab" href="#pose-app" role="tab" aria-controls="pose-app" aria-selected="false">Pose Detection App</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="network-tab" data-toggle="tab" href="#network" role="tab" aria-controls="network" aria-selected="false">Socket-based network programming (TCP/UDP)</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="pi-pic32-tab" data-toggle="tab" href="#pi-pic32" role="tab" aria-controls="pi-pic32" aria-selected="false">Raspberry PI Server &amp; PIC32MM</a>
+                    </li>
+                </ul>
+                <div class="tab-content project-tab-content" id="projectTabContent">
+                    <div class="tab-pane fade show active" id="from-transistor" role="tabpanel" aria-labelledby="from-transistor-tab">
+                        <div class="project-panel">
+                            <h4>From the Transistor (RISC-V)</h4>
+                            <p class="mb-0 text-black-50">A project idea developed by George Hotz. See my project page for the evolving notes and section-by-section progress: <a href="fromtran.html">From the Transistor to the Web Browser</a>.</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="stock" role="tabpanel" aria-labelledby="stock-tab">
+                        <div class="project-panel">
+                            <h4>Hardware Accelerated Stock Prediction (LSTM RNN)</h4>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pose-accel" role="tabpanel" aria-labelledby="pose-accel-tab">
+                        <div class="project-panel">
+                            <h4>Hardware Accelerated Body Pose Estimation (Blazepose)</h4>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pose-app" role="tabpanel" aria-labelledby="pose-app-tab">
+                        <div class="project-panel">
+                            <h4>Pose Detection App</h4>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="network" role="tabpanel" aria-labelledby="network-tab">
+                        <div class="project-panel">
+                            <h4>Socket-based network programming (TCP/UDP)</h4>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pi-pic32" role="tabpanel" aria-labelledby="pi-pic32-tab">
+                        <div class="project-panel">
+                            <h4>Raspberry PI Server &amp; PIC32MM</h4>
+                            <p class="mb-0 text-black-50">The board on the left is a Raspberry Pi Zero W. Using a Linux-based operating system, I configured it to act as a portable server. Although the board itself is quite tiny, I am able to use adapters to connect 4 terabytes of storage and easily access the space through a simple Wi-Fi connection. The board on the right is a PIC32MM Curiosity Development Board. Although no practical uses have been implemented, I configured the board to alternate between 4 LED states using the 2 switches, interrupts, and an integrated 555 timer.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="project-card">
-                <div class="project-content">
-                    <h4>Pose Detection App</h4>
-                    <p>Mobile application for real-time pose detection and analysis using computer vision techniques.</p>
-                    <a href="pose-detection-app.html" class="project-link">View Project →</a>
+        </section>
+
+        <section class="signup-section" id="signup">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-lg-8 mx-auto text-center">
+                        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+                        <h2 class="text-white mb-5">Subscribe for a copy of my most up-to-date resume in pdf format!</h2>
+                        <form class="form-inline d-flex">
+                            <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" type="email" placeholder="Enter email address..." />
+                            <button class="btn btn-primary mx-auto" type="submit">Subscribe</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            
-            <div class="project-card">
-                <div class="project-content">
-                    <h4>Socket-based Network Programming</h4>
-                    <p>TCP/UDP implementation in C/C++ demonstrating low-level networking protocols and socket programming.</p>
-                    <a href="socket-networking.html" class="project-link">View Project →</a>
+        </section>
+
+        <section class="contact-section bg-black">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Location</h4>
+                                <hr class="my-4" />
+                                <div class="small text-black-50">Based in Massachusetts</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-envelope text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Email</h4>
+                                <hr class="my-4" />
+                                <div class="small text-black-50"><a href="#!">vibish11@gmail.com</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card py-4 h-100">
+                            <div class="card-body text-center">
+                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Phone</h4>
+                                <hr class="my-4" />
+                                <div class="small text-black-50">+1 (781) 864-1773</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -578,62 +204,13 @@
                     <a href="raspberrypi-pic32mm.html" class="project-link">View Project →</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="signup">
-        <h2 class="section-subtitle">Get in Touch</h2>
-        <h3 class="section-title">Contact Information</h3>
-        <p style="max-width: 600px; margin: 0 auto 2rem; color: var(--text-dim);">
-            Always open to opportunities and happy to connect. Feel free to message me anytime!
-        </p>
-        
-        <div class="contact-grid">
-            <div class="contact-item">
-                <h4>Location</h4>
-                <p>Based in Massachusetts</p>
-            </div>
-            
-            <div class="contact-item">
-                <h4>Email</h4>
-                <a href="mailto:vibish11@gmail.com">vibish11@gmail.com</a>
-            </div>
-            
-            <div class="contact-item">
-                <h4>Phone</h4>
-                <p>+1 (781) 864-1773</p>
-            </div>
-        </div>
-    </section>
+        <footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Vibishan Wigneswaran 2020</div></footer>
 
-    <!-- Footer -->
-    <footer>
-        <p>Copyright © Vibishan Wigneswaran 2020-2025</p>
-    </footer>
-
-    <script>
-        // Mobile menu toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-                navLinks.classList.remove('active');
-            }
-        });
-
-        // Close menu when clicking a link
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-    </script>
-</body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script src="js/scripts.js"></script>
+    </body>
 </html>
