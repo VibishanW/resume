@@ -152,6 +152,35 @@
             line-height: 1;
         }
 
+        .code-block {
+            background: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .repo-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--surface-light);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .repo-link:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
         footer {
             text-align: center;
             padding: 3rem 2rem;
@@ -186,51 +215,111 @@
     </nav>
 
     <section class="hero">
-        <h1>Hardware Accelerated Stock Prediction</h1>
-        <p class="hero-subtitle">LSTM RNN implementation on FPGA for high-performance time-series prediction</p>
+        <h1>Stock Prediction via LSTM RNN</h1>
+        <p class="hero-subtitle">Exploring time-series forecasting with Long Short-Term Memory networks</p>
     </section>
 
     <div class="content">
         <div class="project-section">
             <h2>Project Overview</h2>
             <p>
-                This project explores the implementation of Long Short-Term Memory (LSTM) Recurrent Neural Networks on FPGA hardware for accelerated stock market prediction. By leveraging hardware parallelism and optimized inference pipelines, the system achieves significant performance improvements over traditional CPU-based approaches.
+                This project implements a Long Short-Term Memory (LSTM) Recurrent Neural Network for stock price prediction. By leveraging the sequential nature of LSTM cells, the model learns patterns from historical stock data to forecast future price movements. The work demonstrates practical applications of deep learning in financial time-series analysis.
             </p>
-            <p>
-                The project demonstrates the viability of deploying complex neural network architectures on specialized hardware for real-time financial analysis and prediction tasks.
-            </p>
+            <a href="https://github.com/VibishanW/Stock_Prediction_Via_LSTM_RNN" class="repo-link" target="_blank">View on GitHub →</a>
         </div>
 
         <div class="project-section">
-            <h2>Technical Implementation</h2>
+            <h2>Workflow & Implementation</h2>
             
-            <h3>Key Components</h3>
+            <h3>1. Data Collection & Preprocessing</h3>
             <ul>
-                <li>LSTM neural network architecture optimized for hardware acceleration</li>
-                <li>Custom datapath design for matrix operations and activation functions</li>
-                <li>High-speed data streaming interfaces for real-time market data ingestion</li>
-                <li>Inference pipeline with optimized memory access patterns</li>
-                <li>Hardware-software co-design for model deployment and testing</li>
+                <li>Gathered historical stock price data (Open, High, Low, Close, Volume)</li>
+                <li>Applied data normalization using MinMaxScaler to scale values between 0 and 1</li>
+                <li>Created sliding window sequences for time-series input</li>
+                <li>Split data into training, validation, and test sets</li>
             </ul>
 
-            <h3>Technologies Used</h3>
+            <h3>2. Model Architecture</h3>
+            <p>
+                The LSTM network was designed with multiple layers to capture both short-term and long-term dependencies in stock price movements:
+            </p>
             <ul>
-                <li>FPGA Development: Xilinx Vivado, Vitis HLS</li>
-                <li>HDL: VHDL, SystemVerilog</li>
-                <li>ML Frameworks: TensorFlow, PyTorch for model training</li>
-                <li>Model Optimization: ONNX format for hardware deployment</li>
-                <li>Programming: Python, C/C++ for verification and testing</li>
+                <li>Input layer accepting sequences of historical price data</li>
+                <li>Stacked LSTM layers with dropout for regularization</li>
+                <li>Dense output layer for price prediction</li>
+                <li>Loss function: Mean Squared Error (MSE)</li>
+                <li>Optimizer: Adam with learning rate scheduling</li>
+            </ul>
+
+            <h3>3. Training Process</h3>
+            <ul>
+                <li>Trained model on historical data with early stopping</li>
+                <li>Monitored validation loss to prevent overfitting</li>
+                <li>Experimented with different window sizes and LSTM units</li>
+                <li>Tuned hyperparameters: learning rate, batch size, epochs</li>
+            </ul>
+
+            <h3>4. Evaluation & Results</h3>
+            <ul>
+                <li>Evaluated model performance using RMSE and MAE metrics</li>
+                <li>Visualized predictions against actual stock prices</li>
+                <li>Analyzed prediction accuracy across different time horizons</li>
+                <li>Compared performance against baseline models</li>
             </ul>
         </div>
 
         <div class="project-section">
-            <h2>Results & Insights</h2>
+            <h2>Key Learnings</h2>
+            
+            <h3>Technical Insights</h3>
+            <ul>
+                <li>Understanding LSTM architecture and its ability to remember long-term dependencies</li>
+                <li>Importance of proper data preprocessing and normalization in time-series tasks</li>
+                <li>Challenges of overfitting in financial data and mitigation strategies</li>
+                <li>Impact of sequence length on model performance and training time</li>
+            </ul>
+
+            <h3>Financial Market Complexity</h3>
             <p>
-                The hardware-accelerated implementation demonstrates the potential for deploying advanced machine learning models on FPGAs for latency-critical applications. The project explores trade-offs between model accuracy, hardware resource utilization, and inference throughput.
+                Stock price prediction is inherently challenging due to market volatility, external factors, and non-stationary data distributions. This project highlighted the limitations of purely technical analysis and the importance of:
             </p>
-            <p>
-                Future work includes exploring quantization techniques, multi-model ensembles, and integration with real-time trading systems.
-            </p>
+            <ul>
+                <li>Feature engineering to capture meaningful patterns</li>
+                <li>Understanding that past performance doesn't guarantee future results</li>
+                <li>The need for continuous model retraining with new data</li>
+                <li>Combining multiple indicators and external data sources</li>
+            </ul>
+
+            <h3>Deep Learning Best Practices</h3>
+            <ul>
+                <li>Proper train-validation-test split for time-series data</li>
+                <li>Using callbacks for early stopping and model checkpointing</li>
+                <li>Importance of hyperparameter tuning and systematic experimentation</li>
+                <li>Visualization techniques for understanding model predictions</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h2>Technologies Used</h2>
+            <ul>
+                <li>Python for model development and data processing</li>
+                <li>TensorFlow/Keras for building and training the LSTM network</li>
+                <li>NumPy and Pandas for data manipulation</li>
+                <li>Matplotlib/Seaborn for visualization</li>
+                <li>Scikit-learn for preprocessing and metrics</li>
+                <li>Yahoo Finance API (or similar) for data collection</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h2>Future Improvements</h2>
+            <ul>
+                <li>Incorporate sentiment analysis from news and social media</li>
+                <li>Experiment with attention mechanisms and transformer architectures</li>
+                <li>Multi-variate forecasting using multiple stock indicators</li>
+                <li>Ensemble methods combining LSTM with other models</li>
+                <li>Real-time prediction pipeline with live data feeds</li>
+            </ul>
         </div>
     </div>
 

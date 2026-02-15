@@ -216,6 +216,14 @@
             color: var(--text-dim);
         }
 
+        .section-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -254,7 +262,7 @@
     <!-- Hero -->
     <section class="hero">
         <h1>From the Transistor to the Web Browser</h1>
-        <p class="hero-subtitle">A comprehensive journey through computer engineering, inspired by George Hotz's radical approach to learning</p>
+        <p class="hero-subtitle">A comprehensive journey through computer engineering, inspired by George Hotz's</p>
     </section>
 
     <!-- Content -->
@@ -265,11 +273,51 @@
                 A project idea developed by <a href="https://github.com/geohot/fromthetransistor" target="_blank">George Hotz</a>. This ambitious undertaking follows Hotz's vision of understanding computer systems from first principles - literally starting with transistors and building up to a complete web browser.
             </p>
             <p>
-                My engineering mentality is heavily influenced by an avant-garde approach to learning computer science outlined by George Hotz in a document labeled "From the Transistor to the Web Browser". In this document, Hotz tears down flaws in modern computer science curriculum and introduces a more radical approach.
-            </p>
-            <p>
                 Below you'll find my evolving notes and section-by-section progress through this journey. Each section represents a fundamental layer of computing, built upon the previous foundations.
             </p>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="section-card">
+            <div class="section-number">01</div>
+            <h2>Introduction: From NAND to Tetris</h2>
+            
+            <h3>Overview</h3>
+            <p>
+                This foundational section explores the building blocks of computer systems, starting from basic logic gates and working up to more complex digital circuits. The journey begins with understanding how simple NAND gates can be combined to create all other logic gates and eventually entire computer systems.
+            </p>
+
+            <h3>NAND Gate - The Universal Gate</h3>
+            <img src="assets/sec1/Nand.PNG" alt="NAND Gate Logic Diagram">
+            <p>
+                The NAND (NOT-AND) gate is considered universal because any boolean function can be implemented using only NAND gates. This makes it a fundamental building block for all digital logic.
+            </p>
+
+            <h3>Multiplexer (MUX)</h3>
+            <img src="assets/sec1/Mux.PNG" alt="Multiplexer Circuit Diagram">
+            <p>
+                A multiplexer is a combinational circuit that selects one of several input signals and forwards it to a single output line. The selection is controlled by a set of select lines, making it essential for data routing in digital systems.
+            </p>
+
+            <h3>Active High Latch</h3>
+            <img src="assets/sec1/ActiveHighLatch.PNG" alt="Active High Latch Circuit">
+            <p>
+                Latches are fundamental memory elements in digital circuits. An active high latch stores one bit of information and maintains its state until a new input is provided when the enable signal is high.
+            </p>
+
+            <h3>Flip-Flop</h3>
+            <img src="assets/sec1/flipflop.jpg" alt="Flip-Flop Timing Diagram">
+            <p>
+                Flip-flops are edge-triggered memory elements that change state only on clock transitions. They are the building blocks of registers and counters, essential for sequential logic circuits.
+            </p>
+
+            <h3>Integrated Circuits</h3>
+            <img src="assets/sec1/IC.jpg" alt="Integrated Circuit">
+            <p>
+                Understanding how these logic elements are physically implemented in integrated circuits provides insight into the transition from theory to practical hardware implementation.
+            </p>
+
+            <span class="status-badge">Completed</span>
         </div>
 
         <!-- Section 2 -->
