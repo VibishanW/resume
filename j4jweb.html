@@ -521,20 +521,7 @@
                     return;
                 }
                 
-                // Draw keypoints
-                pose.keypoints.forEach(keypoint => {
-                    if (keypoint && keypoint.score > 0.3) {
-                        context.beginPath();
-                        context.arc(keypoint.x, keypoint.y, 6, 0, 2 * Math.PI);
-                        context.fillStyle = '#ff5722';
-                        context.fill();
-                        context.strokeStyle = '#ffffff';
-                        context.lineWidth = 2;
-                        context.stroke();
-                    }
-                });
-                
-                // Draw connections
+                // First draw all connections (lines)
                 const connections = [
                     [0, 1], [1, 2], [2, 3], [3, 7],
                     [0, 4], [4, 5], [5, 6], [6, 8],
@@ -546,8 +533,10 @@
                 ];
                 
                 context.strokeStyle = '#00bcd4';
-                context.lineWidth = 4;
+                context.lineWidth = 5;
                 context.lineCap = 'round';
+                context.shadowColor = 'rgba(0, 188, 212, 0.5)';
+                context.shadowBlur = 5;
                 
                 connections.forEach(([i, j]) => {
                     const kp1 = pose.keypoints[i];
@@ -558,6 +547,26 @@
                         context.moveTo(kp1.x, kp1.y);
                         context.lineTo(kp2.x, kp2.y);
                         context.stroke();
+                    }
+                });
+                
+                // Reset shadow for keypoints
+                context.shadowBlur = 0;
+                
+                // Then draw keypoints on top
+                pose.keypoints.forEach(keypoint => {
+                    if (keypoint && keypoint.score > 0.3) {
+                        // Outer circle (white border)
+                        context.beginPath();
+                        context.arc(keypoint.x, keypoint.y, 8, 0, 2 * Math.PI);
+                        context.fillStyle = '#ffffff';
+                        context.fill();
+                        
+                        // Inner circle (red dot)
+                        context.beginPath();
+                        context.arc(keypoint.x, keypoint.y, 6, 0, 2 * Math.PI);
+                        context.fillStyle = '#ff5722';
+                        context.fill();
                     }
                 });
             });
