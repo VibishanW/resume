@@ -1,67 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="Vibishan Wigneswaran" />
-    <title>Pose Detection App</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
-    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pose Detection App - Vibishan Wigneswaran</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #2d2d2d;
+            --accent: #00bcd4;
+            --accent-hover: #00acc1;
+            --text: #ffffff;
+            --text-dim: #b0b0b0;
+            --surface: #252525;
+            --surface-light: #2d2d2d;
+            --border: #3d3d3d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .back-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            background: 
+                linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at top, rgba(0, 188, 212, 0.03), transparent 60%);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .project-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-section h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .project-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-dim);
+        }
+
+        .project-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-section li {
+            color: var(--text);
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .project-section li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .code-block {
+            background: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .repo-link {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--surface-light);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .repo-link:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-item {
+            background: var(--surface-light);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .tech-item strong {
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .project-section {
+                padding: 2rem;
+            }
+
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .content {
+                max-width: 1400px;
+            }
+        }
+    </style>
 </head>
-<body id="page-top">
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand" href="index.html">A Showcase of Skill by Vibishan Wigneswaran</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html#bio">Bio</a></li>
-                <li class="nav-item"><a class="nav-link" href="fromtran.html">From the Transistor</a></li>
-                <li class="nav-item"><a class="nav-link" href="stock-prediction.html">LSTM RNN</a></li>
-                <li class="nav-item"><a class="nav-link" href="blazepose-accelerator.html">Blazepose</a></li>
-                <li class="nav-item"><a class="nav-link" href="pose-detection-app.html">Pose App</a></li>
-                <li class="nav-item"><a class="nav-link" href="socket-networking.html">TCP/UDP</a></li>
-                <li class="nav-item"><a class="nav-link" href="raspberrypi-pic32mm.html">Raspberry PI &amp; PIC32MM</a></li>
-            </ul>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">VW</a>
+            <a href="index.html" class="back-link">← Back to Home</a>
         </div>
-    </div>
-</nav>
-<header class="masthead">
-    <div class="container d-flex h-100 align-items-center">
-        <div class="mx-auto text-center">
-            <h1 class="mx-auto my-0 text-uppercase">Pose Detection App</h1>
-            <h2 class="text-white-50 mx-auto mt-2 mb-5 welcome-copy">Dedicated project page.</h2>
+    </nav>
+
+    <section class="hero">
+        <h1>Joint For Joint (j4jweb)</h1>
+        <p class="hero-subtitle">Baseline BlazePose implementation for benchmarking hardware acceleration</p>
+    </section>
+
+    <div class="content">
+        <div class="project-section">
+            <h2>Project Overview</h2>
+            <p>
+                The Joint For Joint (j4jweb) project implements Google's BlazePose model using TensorFlow.js. This application serves as a baseline software implementation to test and benchmark the performance of BlazePose's CNN model before comparison against my hardware-accelerated implementation on AMD Versal AI Engines.
+            </p>
+            <p>
+                By creating this software baseline, I was able to establish performance metrics (FPS, latency, accuracy) that could be directly compared with the hardware-accelerated version developed in my master's thesis.
+            </p>
+            <a href="https://github.com/VibishanW/JointForJoint" class="repo-link" target="_blank">View on GitHub →</a>
         </div>
-    </div>
-</header>
-<section class="projects-section bg-light" id="project-content">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="project-panel"><h3>Pose Detection App</h3></div>
+
+        <div class="project-section">
+            <h2>Live Demo</h2>
+            <p style="margin-bottom: 1.5rem;">
+                The BlazePose application is embedded below. Click "Start Camera" in the Live tab to begin real-time pose detection with skeleton overlay, or use the "Software" tab to run the 10-second benchmarking session.
+            </p>
+            <div style="width: 100%; margin: 0 auto;">
+                <iframe src="j4jweb.html" style="width: 100%; height: 900px; border: 2px solid var(--border); border-radius: 12px; background: #282c34;"></iframe>
             </div>
         </div>
-    </div>
-</section>
-<section class="contact-section bg-black">
-    <div class="container">
-        <div class="social d-flex justify-content-center">
-            <a class="mx-2" href="https://www.linkedin.com/in/vibishan-wigneswaran-402965187"><i class="fab fa-linkedin"></i></a>
-            <a class="mx-2" href="#!"><i class="fab fa-envelope"></i></a>
-            <a class="mx-2" href="https://github.com/Outerheaven1234"><i class="fab fa-github"></i></a>
+
+        <div class="project-section">
+            <h2>Application Architecture</h2>
+            
+            <h3>Technology Stack</h3>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <strong>Frontend</strong><br>
+                    React 19.0.0
+                </div>
+                <div class="tech-item">
+                    <strong>ML Framework</strong><br>
+                    TensorFlow.js 4.22.0
+                </div>
+                <div class="tech-item">
+                    <strong>Backend</strong><br>
+                    WebGL
+                </div>
+                <div class="tech-item">
+                    <strong>Pose Model</strong><br>
+                    BlazePose (Full)
+                </div>
+            </div>
+
+            <h3>Key Components</h3>
+            <ul>
+                <li><strong>PoseDetection.js</strong> - Real-time pose detection with live camera feed</li>
+                <li><strong>SoftwarePose.js</strong> - 10-second recording mode for performance benchmarking</li>
+                <li><strong>SoftwareMetrics.js</strong> - FPS tracking and performance metrics collection</li>
+                <li><strong>App.js</strong> - Multi-tab navigation between different modes</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h2>Implementation Details</h2>
+            
+            <h3>Real-Time Pose Detection</h3>
+            <p>
+                The core pose detection functionality uses TensorFlow.js with the WebGL backend to run BlazePose inference directly in the browser:
+            </p>
+            <div class="code-block">
+// Initialize TensorFlow.js with WebGL backend
+await tf.setBackend("webgl");
+await tf.ready();
+
+// Load BlazePose model
+const model = poseDetection.SupportedModels.BlazePose;
+const detectorConfig = { 
+    runtime: "tfjs", 
+    modelType: "full" 
+};
+detector = await poseDetection.createDetector(model, detectorConfig);
+
+// Run inference on video frames
+const poses = await detector.estimatePoses(videoElement);
+            </div>
+
+            <h3>Skeleton Drawing</h3>
+            <p>
+                The application visualizes detected poses by drawing keypoints and connections on a canvas overlay:
+            </p>
+            <ul>
+                <li>33 body keypoints tracked per person</li>
+                <li>Confidence threshold of 0.3 for keypoint visibility</li>
+                <li>Pre-defined skeleton connections matching BlazePose topology</li>
+                <li>Real-time canvas rendering synchronized with video frames</li>
+            </ul>
+
+            <h3>Performance Benchmarking Mode</h3>
+            <p>
+                The SoftwarePose component includes a recording mode that captures 10 seconds of pose detection data for performance analysis:
+            </p>
+            <ul>
+                <li>Tracks total frames processed during the recording period</li>
+                <li>Calculates average FPS for baseline comparison</li>
+                <li>Measures inference latency per frame</li>
+                <li>Provides consistent testing methodology for hardware comparison</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h2>Purpose & Learning Objectives</h2>
+            
+            <h3>Baseline Establishment</h3>
+            <p>
+                This software implementation served as the control baseline for my master's thesis on hardware-accelerated pose estimation. Key measurements included:
+            </p>
+            <ul>
+                <li>Software-only inference FPS using WebGL backend</li>
+                <li>Latency characteristics of browser-based TensorFlow.js</li>
+                <li>Accuracy of keypoint detection using full BlazePose model</li>
+                <li>Power consumption and thermal characteristics</li>
+            </ul>
+
+            <h3>What I Learned</h3>
+            <ul>
+                <li><strong>Browser-Based ML Deployment:</strong> Understanding the capabilities and limitations of running deep learning models in web browsers using TensorFlow.js</li>
+                <li><strong>Real-Time Computer Vision:</strong> Implementing efficient video processing pipelines with requestAnimationFrame for smooth performance</li>
+                <li><strong>WebGL Backend:</strong> Learning how TensorFlow.js leverages WebGL for GPU acceleration in the browser</li>
+                <li><strong>Performance Profiling:</strong> Developing methodologies to measure and compare inference performance across different platforms</li>
+                <li><strong>React & Hooks:</strong> Using modern React patterns (useRef, useEffect, useState) for managing video streams and model inference</li>
+                <li><strong>Canvas Rendering:</strong> Efficient 2D graphics rendering for skeleton visualization overlaid on video</li>
+            </ul>
+
+            <h3>Comparison with Hardware Acceleration</h3>
+            <p>
+                The baseline metrics from this software implementation provided critical comparison points for my hardware-accelerated version:
+            </p>
+            <ul>
+                <li>Software (WebGL): ~15-25 FPS on typical laptop GPU</li>
+                <li>Hardware (AI Engine): Targeted 60+ FPS with lower latency</li>
+                <li>Demonstrated the performance gains achievable through dedicated AI acceleration hardware</li>
+                <li>Validated the need for hardware acceleration in real-time, resource-constrained applications</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h2>Technical Challenges & Solutions</h2>
+            
+            <h3>Camera Access & Streaming</h3>
+            <p>
+                Implementing robust camera access using the MediaDevices API with proper error handling and fallbacks for different browser implementations.
+            </p>
+
+            <h3>Frame Synchronization</h3>
+            <p>
+                Ensuring the pose detection loop stays synchronized with video frame updates using requestAnimationFrame for optimal performance.
+            </p>
+
+            <h3>Canvas Overlay</h3>
+            <p>
+                Layering a transparent canvas over the video element with proper z-index management to enable skeleton drawing without interfering with the video stream.
+            </p>
+
+            <h3>Performance Optimization</h3>
+            <p>
+                Balancing detection accuracy with frame rate by tuning model parameters and optimizing drawing routines.
+            </p>
+        </div>
+
+        <div class="project-section">
+            <h2>Application Modes</h2>
+            
+            <h3>Live Mode</h3>
+            <p>
+                Continuous real-time pose detection with skeleton overlay for interactive testing and demonstration.
+            </p>
+
+            <h3>Software Benchmarking Mode</h3>
+            <p>
+                10-second recording sessions that capture performance metrics (frames processed, FPS) for systematic comparison with hardware implementations.
+            </p>
+
+            <h3>AI Engine Mode (Planned)</h3>
+            <p>
+                Integration point for connecting to the hardware-accelerated backend running on AMD Versal AI Engines.
+            </p>
+
+            <h3>Hardware Mode (Planned)</h3>
+            <p>
+                Full hardware acceleration pipeline with performance monitoring and comparison dashboards.
+            </p>
+        </div>
+
+        <div class="project-section">
+            <h2>Key Takeaways</h2>
+            <p>
+                Building this baseline BlazePose implementation was instrumental in understanding the full ML inference pipeline from model loading to real-time visualization. It provided hands-on experience with:
+            </p>
+            <ul>
+                <li>End-to-end ML application development in the browser</li>
+                <li>Performance benchmarking methodologies for ML models</li>
+                <li>Real-time video processing and computer vision</li>
+                <li>The gap between software and hardware acceleration capabilities</li>
+                <li>Practical considerations for deploying pose estimation in production</li>
+            </ul>
+            <p>
+                Most importantly, this project established the baseline performance that made my hardware acceleration thesis work quantifiable and meaningful.
+            </p>
         </div>
     </div>
-</section>
-<footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Vibishan Wigneswaran 2020</div></footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="js/scripts.js"></script>
+
+    <footer>
+        <p>Copyright © Vibishan Wigneswaran 2020-2025</p>
+    </footer>
 </body>
 </html>

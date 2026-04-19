@@ -216,6 +216,14 @@
             color: var(--text-dim);
         }
 
+        .section-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -254,7 +262,7 @@
     <!-- Hero -->
     <section class="hero">
         <h1>From the Transistor to the Web Browser</h1>
-        <p class="hero-subtitle">A comprehensive journey through computer engineering, inspired by George Hotz's radical approach to learning</p>
+        <p class="hero-subtitle">A comprehensive journey through computer engineering, inspired by George Hotz's</p>
     </section>
 
     <!-- Content -->
@@ -265,34 +273,51 @@
                 A project idea developed by <a href="https://github.com/geohot/fromthetransistor" target="_blank">George Hotz</a>. This ambitious undertaking follows Hotz's vision of understanding computer systems from first principles - literally starting with transistors and building up to a complete web browser.
             </p>
             <p>
-                My engineering mentality is heavily influenced by an avant-garde approach to learning computer science outlined by George Hotz in a document labeled "From the Transistor to the Web Browser". In this document, Hotz tears down flaws in modern computer science curriculum and introduces a more radical approach.
-            </p>
-            <p>
                 Below you'll find my evolving notes and section-by-section progress through this journey. Each section represents a fundamental layer of computing, built upon the previous foundations.
             </p>
         </div>
 
-
+        <!-- Section 1 -->
         <div class="section-card">
             <div class="section-number">01</div>
-            <h2>Current Update: RISC-V-Vibi Repository</h2>
-            <p>Latest implementation repo: <a href="https://github.com/VibishanW/RISC-V-Vibi/tree/main" target="_blank">VibishanW/RISC-V-Vibi</a></p>
+            <h2>Introduction: From NAND to Tetris</h2>
+            
+            <h3>Overview</h3>
+            <p>
+                This foundational section explores the building blocks of computer systems, starting from basic logic gates and working up to more complex digital circuits. The journey begins with understanding how simple NAND gates can be combined to create all other logic gates and eventually entire computer systems.
+            </p>
 
-            <h3>What is Completed</h3>
-            <ul>
-                <li>32-bit single-cycle RISC-V processor in VHDL targeting Digilent Cmod S7 (Spartan-7)</li>
-                <li>Harvard-style instruction/data memory split with 4 KB instruction ROM and 4 KB data RAM</li>
-                <li>Partial RV32I support including R-type, I-type, branches, jumps, loads/stores, LUI, and AUIPC</li>
-                <li>Custom Python assembler pipeline from <code>genInstr.s</code> to VHDL ROM initialization</li>
-                <li>Bitstream build flow validated in Vivado 2025.2 for hardware execution</li>
-            </ul>
+            <h3>NAND Gate - The Universal Gate</h3>
+            <img src="assets/sec1/Nand.PNG" alt="NAND Gate Logic Diagram">
+            <p>
+                The NAND (NOT-AND) gate is considered universal because any boolean function can be implemented using only NAND gates. This makes it a fundamental building block for all digital logic.
+            </p>
 
-            <h3>Architecture Snapshots</h3>
-            <p>Top-level and datapath/control diagrams from the live repo:</p>
-            <p><img src="https://raw.githubusercontent.com/VibishanW/RISC-V-Vibi/main/docs/RISC-V_SC-Impl_Schema.png" alt="RISC-V top-level architecture" style="width:100%; border-radius:12px; border:1px solid var(--border); margin-bottom:1rem;"></p>
-            <p><img src="https://raw.githubusercontent.com/VibishanW/RISC-V-Vibi/main/docs/RISC_Vibi_BD.png" alt="RISC-V datapath and control" style="width:100%; border-radius:12px; border:1px solid var(--border);"></p>
+            <h3>Multiplexer (MUX)</h3>
+            <img src="assets/sec1/Mux.PNG" alt="Multiplexer Circuit Diagram">
+            <p>
+                A multiplexer is a combinational circuit that selects one of several input signals and forwards it to a single output line. The selection is controlled by a set of select lines, making it essential for data routing in digital systems.
+            </p>
 
-            <span class="status-badge">Actively Advancing</span>
+            <h3>Active High Latch</h3>
+            <img src="assets/sec1/ActiveHighLatch.PNG" alt="Active High Latch Circuit">
+            <p>
+                Latches are fundamental memory elements in digital circuits. An active high latch stores one bit of information and maintains its state until a new input is provided when the enable signal is high.
+            </p>
+
+            <h3>Flip-Flop</h3>
+            <img src="assets/sec1/flipflop.jpg" alt="Flip-Flop Timing Diagram">
+            <p>
+                Flip-flops are edge-triggered memory elements that change state only on clock transitions. They are the building blocks of registers and counters, essential for sequential logic circuits.
+            </p>
+
+            <h3>Integrated Circuits</h3>
+            <img src="assets/sec1/IC.jpg" alt="Integrated Circuit">
+            <p>
+                Understanding how these logic elements are physically implemented in integrated circuits provides insight into the transition from theory to practical hardware implementation.
+            </p>
+
+            <span class="status-badge">Completed</span>
         </div>
 
         <!-- Section 2 -->
@@ -321,17 +346,16 @@
             
             <h3>Building Blocks</h3>
             <ul>
-                <li>Assembler in Python generating ROM initialization output for VHDL</li>
-                <li>Single-cycle RV32I-style processor in VHDL with integrated datapath/control modules</li>
-                <li>Program counter, register file, ALU, immediate generator, and control unit fully wired</li>
-                <li>FPGA bring-up flow tested using Vivado + Cmod S7 hardware target</li>
+                <li>An assembler in Python</li>
+                <li>A simple Single-Cycle RISC-V processor in VHDL</li>
+                <li>A bootrom for initial program loading</li>
             </ul>
             
             <p>
-                This stage is no longer just conceptual: the processor architecture has been implemented and exercised on FPGA tooling. Current work now focuses on iterative ISA expansion, verification depth, and improving the software toolchain/user workflows around the core.
+                In this section, I dive deep into processor architecture by implementing a complete RISC-V processor from scratch. This involves understanding instruction sets, designing the datapath and control logic, and creating the toolchain necessary to program it.
             </p>
             
-            <span class="status-badge">Implemented & Improving</span>
+            <span class="status-badge">In Progress</span>
         </div>
 
         <!-- Section 4 -->
