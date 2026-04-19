@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="Vibishan Wigneswaran" />
+    <title>Hardware Accelerated Stock Prediction (LSTM RNN)</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">A Showcase of Skill by Vibishan Wigneswaran</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html#bio">Bio</a></li>
+                <li class="nav-item"><a class="nav-link" href="fromtran.html">From the Transistor</a></li>
+                <li class="nav-item"><a class="nav-link" href="stock-prediction.html">LSTM RNN</a></li>
+                <li class="nav-item"><a class="nav-link" href="blazepose-accelerator.html">Blazepose</a></li>
+                <li class="nav-item"><a class="nav-link" href="pose-detection-app.html">Pose App</a></li>
+                <li class="nav-item"><a class="nav-link" href="socket-networking.html">TCP/UDP</a></li>
+                <li class="nav-item"><a class="nav-link" href="raspberrypi-pic32mm.html">Raspberry PI &amp; PIC32MM</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<header class="masthead">
+    <div class="container d-flex h-100 align-items-center">
+        <div class="mx-auto text-center">
+            <h1 class="mx-auto my-0 text-uppercase">Hardware Accelerated Stock Prediction (LSTM RNN)</h1>
+            <h2 class="text-white-50 mx-auto mt-2 mb-5 welcome-copy">A full-stack project combining Python model development and FPGA deployment on AMD/Xilinx U280 to predict next-day S&amp;P 500 values (Open, Close, High, Low, Volume).</h2>
+        </div>
+    </div>
+</header>
+
+<section class="projects-section bg-light" id="project-content">
+    <div class="container">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-10">
+                <div class="project-panel lstm-panel">
+                    <h3>Project Overview</h3>
+                    <p>This project starts with a Python LSTM-RNN model trained on 2020 SPY market data, then extends into hardware-accelerated inference on a Xilinx U280 using Vitis HLS and XRT. The repository includes software baselines, a conventional RNN hardware step, a full LSTM hardware implementation, and analytics scripts for accuracy/runtime comparison.</p>
+                    <p class="mb-0">Repository: <a href="https://github.com/VibishanW/Stock_Prediction_Via_LSTM_RNN" target="_blank" rel="noopener noreferrer">Stock_Prediction_Via_LSTM_RNN</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-lg-6 mb-4">
+                <div class="project-panel lstm-panel h-100">
+                    <h4>Software Model (Python)</h4>
+                    <ul>
+                        <li>Uses <strong>yfinance</strong> to download SPY daily candles from 2020-01-01 to 2021-01-01.</li>
+                        <li>Input features: <strong>Open, Close, High, Low, Volume</strong>.</li>
+                        <li>Per-feature MinMax normalization and a <strong>60-day sequence window</strong>.</li>
+                        <li>Model architecture: <strong>2 stacked LSTM layers (50 units each)</strong> and a 5-output dense head.</li>
+                        <li>Predicts next-day 5-feature vector; exports plots and text outputs for analysis.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="project-panel lstm-panel h-100">
+                    <h4>Hardware Path (U280)</h4>
+                    <ul>
+                        <li>HLS kernel implementation in C++ for LSTM/RNN paths with Vitis 2023.2 flow.</li>
+                        <li>Host-side runtime uses <strong>XRT</strong> to load xclbin, stream inputs, execute kernels, and collect outputs.</li>
+                        <li>LSTM design includes gate computations with fixed-point math and clipping for numerical stability.</li>
+                        <li>Supports multi-file input batches and output consolidation for software-vs-hardware analytics.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-10">
+                <div class="project-panel lstm-panel">
+                    <h3>Accuracy Results (from repo analytics)</h3>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>U280 Hardware</th>
+                                    <th>Python Software</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Open Accuracy</td><td>94.71%</td><td>95.33%</td></tr>
+                                <tr><td>Close Accuracy</td><td>94.93%</td><td>95.27%</td></tr>
+                                <tr><td>High Accuracy</td><td>95.82%</td><td>96.03%</td></tr>
+                                <tr><td>Low Accuracy</td><td>94.83%</td><td>95.51%</td></tr>
+                                <tr><td>Volume Accuracy</td><td>79.86%</td><td>73.27%</td></tr>
+                                <tr class="font-weight-bold"><td>Overall Accuracy</td><td>92.03%</td><td>91.08%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="mt-3 mb-0">Takeaway: both implementations track price-related features well (&gt;94%), while volume remains the hardest feature. Hardware slightly outperforms software on overall and volume metrics in this test set.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-lg-12">
+                <div class="project-panel lstm-panel">
+                    <h3>Prediction &amp; Runtime Visuals</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <img class="img-fluid mb-2 lstm-image" src="https://raw.githubusercontent.com/VibishanW/Stock_Prediction_Via_LSTM_RNN/main/LSTM_RNN_SW/LSTM_RNN_Via_YFinance/predictions_plot.png" alt="LSTM prediction plots for SPY features" />
+                            <p class="small mb-0">SPY prediction plot generated by the Python LSTM pipeline (real vs predicted traces per feature).</p>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <img class="img-fluid mb-2 lstm-image" src="https://raw.githubusercontent.com/VibishanW/Stock_Prediction_Via_LSTM_RNN/main/Analytics/LSTM_RNN_SW_Runtime.PNG" alt="LSTM software runtime screenshot" />
+                            <p class="small mb-0">Software runtime analytics snapshot from the project repository.</p>
+                        </div>
+                        <div class="col-md-6 mb-0">
+                            <img class="img-fluid mb-2 lstm-image" src="https://raw.githubusercontent.com/VibishanW/Stock_Prediction_Via_LSTM_RNN/main/Analytics/LSTM_RNN_HW_Runtime.PNG" alt="LSTM hardware runtime screenshot" />
+                            <p class="small mb-0">Hardware runtime analytics snapshot from U280 execution context.</p>
+                        </div>
+                        <div class="col-md-6 mb-0">
+                            <img class="img-fluid mb-2 lstm-image" src="https://raw.githubusercontent.com/VibishanW/Stock_Prediction_Via_LSTM_RNN/main/Analytics/LSTM_RNN_HW_Code_Analyzer_1.PNG" alt="LSTM hardware code analyzer screenshot" />
+                            <p class="small mb-0">HLS code analyzer view used for profiling and optimization decisions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="project-panel lstm-panel">
+                    <h3>Implementation Notes &amp; Engineering Analysis</h3>
+                    <ul class="mb-3">
+                        <li>The software path uses a straightforward and reproducible workflow (data ingest → normalize → train → infer), making it a strong baseline for hardware comparison.</li>
+                        <li>Hardware flow introduces additional engineering constraints: fixed-point considerations, host-device transfer overhead, and synthesis/tool constraints.</li>
+                        <li>The project is strong in methodology: it uses the same signal set and direct output-file comparisons to produce transparent accuracy metrics.</li>
+                        <li>The split between incremental milestones (RNN first, then LSTM) demonstrates practical risk reduction for FPGA algorithm bring-up.</li>
+                    </ul>
+                    <p class="mb-0">Future evolution could include larger rolling windows, richer feature engineering (e.g., volatility indicators), and quantization-aware training to better align software training behavior with fixed-point hardware execution.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section bg-black">
+    <div class="container">
+        <div class="social d-flex justify-content-center">
+            <a class="mx-2" href="https://www.linkedin.com/in/vibishan-wigneswaran-402965187"><i class="fab fa-linkedin"></i></a>
+            <a class="mx-2" href="#!"><i class="fab fa-envelope"></i></a>
+            <a class="mx-2" href="https://github.com/Outerheaven1234"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+</section>
+<footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Vibishan Wigneswaran 2020</div></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="js/scripts.js"></script>
+</body>
+</html>
