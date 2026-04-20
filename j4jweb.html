@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joint For Joint - Pose Detection</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection@2.1.3"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #282c34;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background: #222;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .tab {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            margin: 0;
+            background: #444;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .tab:hover {
+            background: #666;
+        }
+
+        .tab.active {
+            background: #ff5722;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .page {
+            display: none;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        /* Video Container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1280px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 1;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background: #ff5722;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: #e64a19;
+        }
+
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        /* Stats */
+        .stats {
+            margin-top: 20px;
+            padding: 20px;
+            background: #333;
+            border-radius: 8px;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .stat-item {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .stat-value {
+            color: #ff5722;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            border: 4px solid #444;
+            border-top: 4px solid #ff5722;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Coming Soon */
+        .coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .coming-soon h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .coming-soon p {
+            color: #aaa;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .video-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <button class="tab active" onclick="showPage('live')">Live</button>
+            <button class="tab" onclick="showPage('software')">Software</button>
+            <button class="tab" onclick="showPage('aiengine')">AI Engine</button>
+            <button class="tab" onclick="showPage('hardware')">Hardware</button>
+        </nav>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- Live Page -->
+            <div id="live" class="page active">
+                <h2>Live Pose Detection</h2>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Loading BlazePose model...</p>
+                </div>
+                <div class="video-container" id="videoContainer" style="display: none;">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas"></canvas>
+                </div>
+                <div class="controls" id="controls" style="display: none;">
+                    <button onclick="startCamera()">Start Camera</button>
+                    <button onclick="stopCamera()">Stop Camera</button>
+                </div>
+                <div class="stats" id="liveStats" style="display: none; margin-top: 20px;">
+                    <div class="stat-item">
+                        <div class="stat-label">Poses Detected</div>
+                        <div class="stat-value" id="poseStatus">Waiting...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Software Page -->
+            <div id="software" class="page">
+                <h2>Software Benchmarking</h2>
+                <div class="loading" id="loadingSoftware">
+                    <div class="spinner"></div>
+                    <p>Loading BlazePose model...</p>
+                </div>
+                <div class="video-container" id="videoContainerSoftware" style="display: none;">
+                    <video id="videoSoftware" autoplay playsinline></video>
+                    <canvas id="canvasSoftware"></canvas>
+                </div>
+                <div class="controls" id="controlsSoftware" style="display: none;">
+                    <button id="recordBtn" onclick="startRecording()">Start 10-sec Recording</button>
+                </div>
+                <div class="stats" id="stats" style="display: none;">
+                    <div class="stat-item">
+                        <div class="stat-label">Frames Processed</div>
+                        <div class="stat-value" id="frameCount">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Average FPS</div>
+                        <div class="stat-value" id="fps">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Recording Time</div>
+                        <div class="stat-value" id="recordTime">0.0s</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Engine Page -->
+            <div id="aiengine" class="page">
+                <div class="coming-soon">
+                    <h2>AI Engine Mode</h2>
+                    <p>Hardware acceleration on AMD Versal AI Engines</p>
+                    <p style="margin-top: 10px; font-size: 16px;">Coming Soon</p>
+                </div>
+            </div>
+
+            <!-- Hardware Page -->
+            <div id="hardware" class="page">
+                <div class="coming-soon">
+                    <h2>Hardware Mode</h2>
+                    <p>Full hardware-accelerated pipeline</p>
+                    <p style="margin-top: 10px; font-size: 16px;">Coming Soon</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let detector = null;
+        let video, canvas, ctx;
+        let videoSoftware, canvasSoftware, ctxSoftware;
+        let animationId = null;
+        let animationIdSoftware = null;
+        let recording = false;
+        let recordingStart = 0;
+        let frameCount = 0;
+
+        // Initialize on page load
+        window.addEventListener('load', async () => {
+            await initializeModel();
+        });
+
+        async function initializeModel() {
+            try {
+                console.log('Loading BlazePose model...');
+                await tf.setBackend('webgl');
+                await tf.ready();
+                
+                const model = poseDetection.SupportedModels.BlazePose;
+                const detectorConfig = {
+                    runtime: 'tfjs',
+                    modelType: 'full'
+                };
+                
+                detector = await poseDetection.createDetector(model, detectorConfig);
+                console.log('BlazePose model loaded successfully');
+                
+                // Hide loading screens
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('loadingSoftware').style.display = 'none';
+                
+                // Show video containers and controls
+                document.getElementById('videoContainer').style.display = 'block';
+                document.getElementById('controls').style.display = 'flex';
+                document.getElementById('liveStats').style.display = 'block';
+                document.getElementById('videoContainerSoftware').style.display = 'block';
+                document.getElementById('controlsSoftware').style.display = 'flex';
+                document.getElementById('stats').style.display = 'block';
+                
+                // Initialize video elements
+                video = document.getElementById('video');
+                canvas = document.getElementById('canvas');
+                ctx = canvas.getContext('2d');
+                
+                videoSoftware = document.getElementById('videoSoftware');
+                canvasSoftware = document.getElementById('canvasSoftware');
+                ctxSoftware = canvasSoftware.getContext('2d');
+                
+            } catch (error) {
+                console.error('Error loading model:', error);
+                alert('Error loading BlazePose model. Please refresh and try again.');
+            }
+        }
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user', width: 1280, height: 720 }
+                });
+                video.srcObject = stream;
+                
+                video.onloadeddata = () => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    detectPose();
+                };
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+                alert('Error accessing camera. Please ensure you have granted camera permissions.');
+            }
+        }
+
+        function stopCamera() {
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+            }
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        async function detectPose() {
+            if (!detector || !video || video.paused || video.ended) {
+                animationId = requestAnimationFrame(detectPose);
+                return;
+            }
+
+            try {
+                const poses = await detector.estimatePoses(video);
+                
+                // Update status
+                const statusEl = document.getElementById('poseStatus');
+                if (statusEl) {
+                    if (poses.length > 0) {
+                        statusEl.textContent = `${poses.length} person(s)`;
+                        statusEl.style.color = '#4caf50';
+                    } else {
+                        statusEl.textContent = 'No pose detected';
+                        statusEl.style.color = '#ff9800';
+                    }
+                }
+                
+                // Draw video frame to canvas first
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                
+                // Then draw skeleton overlay
+                if (poses.length > 0) {
+                    console.log('Drawing skeleton for', poses.length, 'pose(s)');
+                    drawSkeleton(poses, ctx);
+                }
+            } catch (error) {
+                console.error('Pose detection error:', error);
+            }
+
+            animationId = requestAnimationFrame(detectPose);
+        }
+
+        async function startRecording() {
+            if (recording) return;
+            
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: 'user', width: 1280, height: 720 }
+                });
+                videoSoftware.srcObject = stream;
+                
+                videoSoftware.onloadeddata = () => {
+                    canvasSoftware.width = videoSoftware.videoWidth;
+                    canvasSoftware.height = videoSoftware.videoHeight;
+                    
+                    recording = true;
+                    recordingStart = performance.now();
+                    frameCount = 0;
+                    
+                    document.getElementById('recordBtn').disabled = true;
+                    document.getElementById('recordBtn').textContent = 'Recording...';
+                    
+                    recordLoop();
+                };
+            } catch (error) {
+                console.error('Error accessing camera:', error);
+                alert('Error accessing camera. Please ensure you have granted camera permissions.');
+            }
+        }
+
+        async function recordLoop() {
+            if (!recording) return;
+            
+            const elapsed = (performance.now() - recordingStart) / 1000;
+            
+            if (elapsed >= 10) {
+                stopRecording();
+                return;
+            }
+            
+            try {
+                const poses = await detector.estimatePoses(videoSoftware);
+                frameCount++;
+                
+                ctxSoftware.clearRect(0, 0, canvasSoftware.width, canvasSoftware.height);
+                ctxSoftware.drawImage(videoSoftware, 0, 0);
+                
+                if (poses.length > 0) {
+                    drawSkeleton(poses, ctxSoftware);
+                }
+                
+                // Update stats
+                const fps = (frameCount / elapsed).toFixed(1);
+                document.getElementById('frameCount').textContent = frameCount;
+                document.getElementById('fps').textContent = fps;
+                document.getElementById('recordTime').textContent = elapsed.toFixed(1) + 's';
+                
+            } catch (error) {
+                console.error('Recording error:', error);
+            }
+            
+            animationIdSoftware = requestAnimationFrame(recordLoop);
+        }
+
+        function stopRecording() {
+            recording = false;
+            
+            if (videoSoftware.srcObject) {
+                videoSoftware.srcObject.getTracks().forEach(track => track.stop());
+            }
+            
+            if (animationIdSoftware) {
+                cancelAnimationFrame(animationIdSoftware);
+            }
+            
+            document.getElementById('recordBtn').disabled = false;
+            document.getElementById('recordBtn').textContent = 'Start 10-sec Recording';
+        }
+
+        function drawSkeleton(poses, context) {
+            poses.forEach(pose => {
+                if (!pose.keypoints || pose.keypoints.length === 0) {
+                    console.log('No keypoints detected');
+                    return;
+                }
+                
+                // First draw all connections (lines)
+                const connections = [
+                    [0, 1], [1, 2], [2, 3], [3, 7],
+                    [0, 4], [4, 5], [5, 6], [6, 8],
+                    [9, 10],
+                    [11, 12], [11, 13], [13, 15], [12, 14], [14, 16],
+                    [11, 23], [12, 24], [23, 24],
+                    [23, 25], [25, 27], [24, 26], [26, 28],
+                    [27, 31], [28, 32], [29, 31], [30, 32]
+                ];
+                
+                context.strokeStyle = '#00bcd4';
+                context.lineWidth = 5;
+                context.lineCap = 'round';
+                context.shadowColor = 'rgba(0, 188, 212, 0.5)';
+                context.shadowBlur = 5;
+                
+                connections.forEach(([i, j]) => {
+                    const kp1 = pose.keypoints[i];
+                    const kp2 = pose.keypoints[j];
+                    
+                    if (kp1 && kp2 && kp1.score > 0.3 && kp2.score > 0.3) {
+                        context.beginPath();
+                        context.moveTo(kp1.x, kp1.y);
+                        context.lineTo(kp2.x, kp2.y);
+                        context.stroke();
+                    }
+                });
+                
+                // Reset shadow for keypoints
+                context.shadowBlur = 0;
+                
+                // Then draw keypoints on top
+                pose.keypoints.forEach(keypoint => {
+                    if (keypoint && keypoint.score > 0.3) {
+                        // Outer circle (white border)
+                        context.beginPath();
+                        context.arc(keypoint.x, keypoint.y, 8, 0, 2 * Math.PI);
+                        context.fillStyle = '#ffffff';
+                        context.fill();
+                        
+                        // Inner circle (red dot)
+                        context.beginPath();
+                        context.arc(keypoint.x, keypoint.y, 6, 0, 2 * Math.PI);
+                        context.fillStyle = '#ff5722';
+                        context.fill();
+                    }
+                });
+            });
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Remove active from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active to clicked tab
+            event.target.classList.add('active');
+            
+            // Clean up camera streams when switching pages
+            if (pageId !== 'live') {
+                stopCamera();
+            }
+            if (pageId !== 'software') {
+                stopRecording();
+            }
+        }
+    </script>
+</body>
+</html>

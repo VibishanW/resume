@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hardware Accelerated Body Pose Estimation - Vibishan Wigneswaran</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #2d2d2d;
+            --accent: #00bcd4;
+            --accent-hover: #00acc1;
+            --text: #ffffff;
+            --text-dim: #b0b0b0;
+            --surface: #252525;
+            --surface-light: #2d2d2d;
+            --border: #3d3d3d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .back-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            padding: 10rem 2rem 6rem;
+            text-align: center;
+            background: 
+                linear-gradient(135deg, rgba(0, 188, 212, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at top, rgba(0, 188, 212, 0.03), transparent 60%);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--text-dim);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .project-section {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .project-section h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .project-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-dim);
+        }
+
+        .project-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-section li {
+            color: var(--text);
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .project-section li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .project-section {
+                padding: 2rem;
+            }
+
+            .hero {
+                padding: 8rem 1.5rem 4rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .content {
+                max-width: 1400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">VW</a>
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Hardware Accelerated Body Pose Estimation</h1>
+        <p class="hero-subtitle">Master's thesis project: Blazepose implementation on AMD Versal AI Engines (VCK5000)</p>
+    </section>
+
+    <div class="content">
+        <div class="project-section">
+            <h2>Thesis Overview</h2>
+            <p>
+                This project represents my Master's thesis work completed at Northeastern University in 2025. The research explores hardware acceleration of the Blazepose model for real-time human pose estimation using AMD Versal AI Engines, specifically targeting the VCK5000 accelerator card.
+            </p>
+            <p>
+                The work demonstrates how specialized AI hardware can dramatically improve inference latency and throughput for computer vision workloads, enabling real-time pose estimation in resource-constrained environments.
+            </p>
+        </div>
+
+        <div class="project-section">
+            <h2>Technical Approach</h2>
+            
+            <h3>System Architecture</h3>
+            <ul>
+                <li>Blazepose model optimized for AMD AI Engine deployment</li>
+                <li>Custom dataflow architecture leveraging AI Engine tiles</li>
+                <li>High-bandwidth memory interfaces for streaming video data</li>
+                <li>Hardware-software partitioning for optimal performance</li>
+                <li>Real-time video processing pipeline integration</li>
+            </ul>
+
+            <h3>Key Technologies</h3>
+            <ul>
+                <li>Platform: AMD Versal VCK5000 AI Engine Array</li>
+                <li>Tools: AMD Vitis, Vitis AI, AI Engine Compiler</li>
+                <li>Model Framework: TensorFlow/ONNX for model preparation</li>
+                <li>Languages: C/C++, Python</li>
+                <li>Computer Vision: OpenCV, custom preprocessing pipelines</li>
+            </ul>
+
+            <h3>Research Contributions</h3>
+            <ul>
+                <li>Performance analysis of pose estimation on AI Engines</li>
+                <li>Optimization strategies for model deployment on heterogeneous architectures</li>
+                <li>Latency and throughput benchmarking against CPU/GPU implementations</li>
+                <li>Design space exploration for resource-accuracy trade-offs</li>
+            </ul>
+        </div>
+
+        <div class="project-section">
+            <h2>Results & Impact</h2>
+            <p>
+                The thesis successfully demonstrates real-time pose estimation acceleration on AMD Versal AI Engines, achieving significant performance improvements over traditional CPU-based inference while maintaining model accuracy. The work provides insights into deploying complex computer vision models on specialized AI acceleration hardware.
+            </p>
+            <p>
+                This research contributes to the growing field of edge AI and hardware-accelerated machine learning, with applications in robotics, sports analytics, healthcare monitoring, and human-computer interaction.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>Copyright © Vibishan Wigneswaran 2020-2025</p>
+    </footer>
+</body>
+</html>
