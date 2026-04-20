@@ -343,85 +343,19 @@
         <div class="section-card">
             <div class="section-number">03</div>
             <h2>Processor: What is a Processor Anyway?</h2>
-
-            <h3>Status</h3>
-            <p>This phase is <strong>completed</strong> for the current single-cycle implementation baseline and hardware bring-up milestone.</p>
-
-            <h3>Latest Processor Update</h3>
+            
+            <h3>Building Blocks</h3>
             <ul>
-                <li>32-bit single-cycle RISC-V processor implemented in VHDL</li>
-                <li>Custom assembler flow integrated for ROM initialization</li>
-                <li>Validated build/program flow on FPGA tooling and board target</li>
+                <li>An assembler in Python</li>
+                <li>A simple Single-Cycle RISC-V processor in VHDL</li>
+                <li>A bootrom for initial program loading</li>
             </ul>
-
-            <h3>Lessons Learned Writing a RISC-V</h3>
-            <p>Building a RISC-V is an intimidating and ultimately rewarding experience in terms of getting your foot into the FPGA world. Coming from a software background I think there are many considerations that can help speed up the learning process. I will go over my process when designing and implementing it into hardware and some tips that may help speed up your progress.</p>
-            <p>I started my design process trying to understand how the RISC-V architecture work. I wrote up a diagram and broke the design up into its smallest components. After reading literature on how the processor works I came up with an interpretation to work off of. The design at its most basic components are basic logic gates that equate to transistor circuits.</p>
-
-            <h3>Abstractly this is my internal workflow</h3>
-            <ul>
-                <li><strong>Blackbox entity with defined inputs & outputs</strong>
-                    <ul>
-                        <li>Understand the constraints, functionality, and how to formally verify it.</li>
-                    </ul>
-                </li>
-                <li><strong>Breakdown functionality into...</strong>
-                    <ul>
-                        <li>Sequential processes: Think about a single thread process similar to how you would approach conventional programming: a → b → c</li>
-                        <li>Concurrent processes: What can or should be done simultaneously.</li>
-                    </ul>
-                </li>
-                <li><strong>Writing processes</strong>
-                    <ul>
-                        <li>What does each process do in terms of logical operations (and, or, xor, if, for)?</li>
-                        <li>Write each process in terms of logic design.</li>
-                    </ul>
-                </li>
-                <li><strong>Understand synthesis</strong>
-                    <ul>
-                        <li>While we think in logical operators, the tool will translate your logic to real circuits.</li>
-                        <li>While not guaranteed, assume the tool pattern-matches operators to respective circuits.</li>
-                        <li>You can design basic flip flops and gate logic in LTSpice to build intuition.</li>
-                    </ul>
-                </li>
-            </ul>
-
-            <p>Now I take this flow and apply it recursively from the top level of the design I am building.</p>
-            <ul>
-                <li>Build a RISC-V → Divide into control and datapaths.</li>
-                <li>Build a datapath → Break into sequential and concurrent components.</li>
-                <li>Build a component (datapath/register file) → Break into selectors (mux) and registers (FFs).</li>
-                <li>Build a subcomponent (mux) → Read how it works and optionally prototype in LTSpice.</li>
-                <li>Build basic logic like muxes and flip flops first, then scale upward.</li>
-            </ul>
-
-            <p>Once you build the most basic component, build its neighbors and understand how it works (like a binary tree). Eventually you will build up a toolkit of components at different layers of abstraction. Eventually the goal is to build bottom-to-top into larger functionalities (filters, FFTs, memory structures, protocols, interfaces).</p>
-            <p>After you build a pathway down from the top level, work on simplifying and optimizing each piece of the architecture from bottom to top.</p>
-            <p>Finally, we can look at design paradigms like adding multi-cycle functions and pipelining.</p>
-            <p><strong>This isn't programming; this is circuit design. Concurrency is your friend!</strong></p>
-
-            <h3>Remember when debugging</h3>
-            <ul>
-                <li>RTL uses structures not object-oriented hierarchies. It’s a circuit, not sequences (DRC errors will be imminent).</li>
-                <li>Pattern match and trace.</li>
-                <li>Organize using entities and simplify the problem every step of the way.</li>
-                <li>Beware of clock domain crossing.</li>
-            </ul>
-
-            <h3>Other tips / tricks</h3>
-            <ul>
-                <li>Always think about how to simplify or optimize your workflow.</li>
-                <li>Leverage Python, sed/awk, and other tools for verification and design.</li>
-                <li>Build and save reusable work to accelerate future projects.</li>
-                <li>Auto-generate build scripts, project files, register definitions, and verification code where possible.</li>
-            </ul>
-
-            <h3>Section 3 Design Images</h3>
-            <p><img src="https://raw.githubusercontent.com/VibishanW/RISC-V-Vibi/main/docs/RISC-V_SC-Impl_Schema.png" alt="RISC-V top wrapper view" style="width:100%; border-radius:12px; border:1px solid var(--border); margin-bottom:1rem;"></p>
-            <p><img src="https://raw.githubusercontent.com/VibishanW/RISC-V-Vibi/main/docs/RISC_Vibi_BD.png" alt="RISC-V block diagram" style="width:100%; border-radius:12px; border:1px solid var(--border); margin-bottom:1rem;"></p>
-            <p><img src="https://raw.githubusercontent.com/VibishanW/RISC-V-Vibi/main/docs/schem_risc.png" alt="RISC-V full schematic" style="width:100%; border-radius:12px; border:1px solid var(--border);"></p>
-
-            <span class="status-badge">Completed</span>
+            
+            <p>
+                In this section, I dive deep into processor architecture by implementing a complete RISC-V processor from scratch. This involves understanding instruction sets, designing the datapath and control logic, and creating the toolchain necessary to program it.
+            </p>
+            
+            <span class="status-badge">In Progress</span>
         </div>
 
         <!-- Section 4 -->
