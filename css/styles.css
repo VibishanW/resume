@@ -10333,3 +10333,95 @@ body {
 .footer {
   padding: 5rem 0;
 }
+.project-tabs {
+  border-bottom: 0;
+  gap: 0.5rem;
+}
+
+.project-tabs .nav-link {
+  border: 1px solid #d5d5d5;
+  color: #343a40;
+  border-radius: 0.25rem;
+}
+
+.project-tabs .nav-link.active,
+.project-tabs .nav-link:hover {
+  color: #fff;
+  background-color: #64a19d;
+  border-color: #64a19d;
+}
+
+.project-tab-content {
+  margin-top: 1.5rem;
+}
+
+.project-panel {
+  background-color: #ffffff;
+  border: 1px solid #e3e3e3;
+  border-radius: 0.25rem;
+  padding: 2rem;
+}
+
+.about-tabs .nav-link {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.about-tabs .nav-link.active,
+.about-tabs .nav-link:hover {
+  color: #fff;
+  border-color: #64a19d;
+}
+
+.project-tabs .nav-item {
+  margin-bottom: 0.5rem;
+}
+
+.welcome-copy {
+  max-width: 62rem !important;
+  line-height: 1.8;
+}
+
+#mainNav .navbar-nav .nav-link {
+  font-size: 0.72rem;
+  padding: 0.4rem 0.6rem;
+}
+
+.project-panel p,
+.project-panel h2,
+.project-panel h3,
+.project-panel h4,
+.project-panel li {
+  color: #212529;
+}
+
+.project-link-card {
+  display: block;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.25rem;
+  padding: 1.25rem;
+  color: #212529;
+  font-weight: 600;
+}
+
+.project-link-card:hover {
+  text-decoration: none;
+  border-color: #64a19d;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.lstm-panel {
+  box-shadow: 0 0.35rem 1rem rgba(0, 0, 0, 0.05);
+}
+
+.lstm-panel table td,
+.lstm-panel table th {
+  vertical-align: middle;
+}
+
+.lstm-image {
+  border: 1px solid #dfdfdf;
+  border-radius: 0.25rem;
+}
